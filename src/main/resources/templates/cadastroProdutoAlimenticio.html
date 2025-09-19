@@ -8,7 +8,7 @@
     <center><br><br><br>
         <h1>Cadastro do produto Alimenticio</h1>
         <form th:action="@{/produto-alimenticio/salvar}" th:object="${produtoAlimenticio}" method="post">
-            (id) <input type="number" name="id" th:field="*{id}" value="1"><Br><br>
+            (id) <input type="number" name="id" hidden th:field="*{id}"><Br><br>
         Produto Alimenticio: <input required type="text" name="titulo" th:field="*{titulo}" placeholder="Ex: Banana"><Br><Br>
         Tipo: <select required th:field="*{tipo}" name="tipo" id="tipo">
             <option selected value="Fruta">Fruta</option>
@@ -23,7 +23,7 @@
         Carboidratos: <input required step="any" type="number" name="carboidratos" th:field="*{carboidratos}" placeholder="27g"><Br><Br>
         Proteinas: <input required step="any" type="number" name="proteinas" th:field="*{proteinas}"  placeholder="1.3g"><Br><Br>
         Gorduras Totais: <input required step="any" type="number" name="gorduraGerais" th:field="*{gorduraGerais}" placeholder="0.3"><Br><Br>
-        Descrição: <input type="text" name="descricao" th:field="*{descricao}" placeholder="Banana nanica, tamanho normal"><Br><Br>
+        Descrição: <input required type="text" name="descricao" th:field="*{descricao}" placeholder="Banana nanica, tamanho normal"><Br><Br>
         Peso (g): <input required step="any" type="number" name="peso" th:field="*{peso}" placeholder="120g"><Br><Br>
 
         <button type="submit">Cadastrar</button>
