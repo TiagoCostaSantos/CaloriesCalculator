@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
     <h1>Hello World</h1>
+
+
+    <script>
+        // Executa só depois que o HTML carregar
+        document.addEventListener("DOMContentLoaded", function() {
+            const params = new URLSearchParams(window.location.search);
+            const cadastro = params.get("cadastro");
+            if (cadastro === "sucesso") {
+                // alerta após 300ms
+                setTimeout(() => {
+                    alert("Produto cadastrado com sucesso!");
+                }, 600);
+            }
+        });
+    </script>
 </body>
