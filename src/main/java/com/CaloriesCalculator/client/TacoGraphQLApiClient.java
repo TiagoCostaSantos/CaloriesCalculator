@@ -4,11 +4,14 @@ import com.CaloriesCalculator.dto.GraphQLResponse;
 import com.CaloriesCalculator.dto.ProdutoAlimenticioDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Map;
 
+// Component para o Spring fazer o bean da classe que precisamos para utilizar no construtor, seria um @service, porém ele não é para regra de negocio e sim para consumir a api externa
+@Component
 public class TacoGraphQLApiClient {
     private final WebClient webClient;
 
@@ -16,17 +19,21 @@ public class TacoGraphQLApiClient {
         this.webClient = WebClient.create("http://localhost:4000/graphql");
     }
 
-    public List<ProdutoAlimenticioDto> buscarProdutoApi() {
-        String query = "{ getFoodByName(name : \"Banana, da terra, crua\"){\n" +
-                "    id\n" +
-                "    name\n" +
-                "    category{name}\n" +
-                "    nutrients{\n" +
-                "      kcal\n" +
-                "      carbohydrates\n" +
-                "      protein\n" +
-                "    }\n" +
-                "  }}";
+    public List<ProdutoAlimenticioDto> buscarProdutoApi(String ProdutoAlimenticio) {
+        String query = String.format("""
+        {
+          getFoodByName(name: "%s") {
+            id
+            name
+            category { name }
+            nutrients {
+              kcal
+              carbohydrates
+              protein
+            }
+          }
+        }
+        """, ProdutoAlimenticio);
         Map<String, String> body = Map.of("query", query);
 
         GraphQLResponse response = webClient.post()
