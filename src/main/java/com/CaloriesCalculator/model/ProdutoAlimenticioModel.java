@@ -8,9 +8,9 @@ public class ProdutoAlimenticioModel {
     private double kcal;
     private double carboidratos;
     private double proteinas;
-    private double gorduraGerais;
+    private double gorduraGerais; // não possue na api
     private String descricao;
-    private double peso;
+    private double peso; // não possue na api
 
     public Long getId() {
         return id;
