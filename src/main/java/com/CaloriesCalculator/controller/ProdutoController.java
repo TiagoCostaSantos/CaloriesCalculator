@@ -5,10 +5,7 @@ import com.CaloriesCalculator.model.ProdutoAlimenticioModel;
 import com.CaloriesCalculator.usecase.ProdutoAlimenticioUseCase;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,11 +38,10 @@ public class ProdutoController {
     }
     // List<ProdutoAlimenticioDto>
     @GetMapping("/BuscarProdutoApi")
-    public String BuscarProdutoApi(String produtoAlimenticio){
+    public String BuscarProdutoApi(@RequestParam("produtoAlimenticio") String produtoAlimenticio, Model model){
         List<ProdutoAlimenticioDto> ProdutosLista = tacoGraphQLApiClient.buscarProdutoApi(produtoAlimenticio);
-        ProdutoAlimenticioDto Produto01 = ProdutosLista.get(0);
-        Produto01.getId();
-        Produto01.getName();
-        return "redirect:../home";
+        model.addAttribute("ProdutosLista", ProdutosLista);
+
+        return "home";
     }
 }
