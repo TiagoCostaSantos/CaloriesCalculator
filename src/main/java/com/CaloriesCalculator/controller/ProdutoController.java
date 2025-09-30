@@ -41,7 +41,6 @@ public class ProdutoController {
     public String BuscarProdutoApi(@RequestParam("produtoAlimenticio") String produtoAlimenticio, Model model){
         List<ProdutoAlimenticioDto> ProdutosLista = tacoGraphQLApiClient.buscarProdutoApi(produtoAlimenticio);
         model.addAttribute("ProdutosLista", ProdutosLista);
-
         return "home";
     }
 }
