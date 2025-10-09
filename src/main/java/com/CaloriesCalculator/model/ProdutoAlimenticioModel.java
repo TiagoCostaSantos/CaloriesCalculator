@@ -12,9 +12,7 @@ public class ProdutoAlimenticioModel {
     private String descricao;
     private double peso; // não possue na api
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() {return id;}
 
     public void setId(Long id) {
         this.id = id;

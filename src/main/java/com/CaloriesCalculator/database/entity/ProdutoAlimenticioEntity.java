@@ -2,8 +2,10 @@ package com.CaloriesCalculator.database.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name="produtoAlimenticio")
+@Table(name="PRODUTO_ALIMENTICIO")
 public class ProdutoAlimenticioEntity {
 
     @Id
@@ -26,6 +28,9 @@ public class ProdutoAlimenticioEntity {
     private String descricao;
     @Column(nullable = false)
     private double peso;
+
+    @OneToMany(mappedBy = "produtoAlimenticio_id", cascade = CascadeType.ALL)
+    private List<Refeicao_ProdutoAlimenticioEntity> refeicoes_ProdutosAlimenticios;
 
     public Long getId() {
         return id;
@@ -97,5 +102,13 @@ public class ProdutoAlimenticioEntity {
 
     public void setPeso(double peso) {
         this.peso = peso;
+    }
+
+    public List<Refeicao_ProdutoAlimenticioEntity> getRefeicoes_ProdutosAlimenticios() {
+        return refeicoes_ProdutosAlimenticios;
+    }
+
+    public void setRefeicoes_ProdutosAlimenticios(List<Refeicao_ProdutoAlimenticioEntity> refeicoes_ProdutosAlimenticios) {
+        this.refeicoes_ProdutosAlimenticios = refeicoes_ProdutosAlimenticios;
     }
 }

@@ -6,7 +6,6 @@ import com.CaloriesCalculator.usecase.ProdutoAlimenticioUseCase;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -24,7 +23,7 @@ public class ProdutoController {
     // CRUD Produtos alimenticios
 
     //Chamando o formulario, e instanciando o model
-    @GetMapping("/Cadastrar")
+    @GetMapping("/cadastrar")
     public String formCadastro (Model model){
         // aqui colocamos o nome do atributo produto para o thymeleaf
         model.addAttribute("produtoAlimenticio",new ProdutoAlimenticioModel());
