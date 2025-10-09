@@ -14,7 +14,7 @@ import java.util.Map;
 @Component
 public class TacoGraphQLApiClient {
     private final WebClient webClient;
-
+    // TODO FAZER CONFIGURAÇÃO PARA TESTAR CONEXÃO E VERIFICAR, CASO NÃO CONSIGA ACESSAR CONTINUAR COM PRODUTOS CADASTRADOS
     public TacoGraphQLApiClient() {
         this.webClient = WebClient.create("http://localhost:4000/graphql");
     }

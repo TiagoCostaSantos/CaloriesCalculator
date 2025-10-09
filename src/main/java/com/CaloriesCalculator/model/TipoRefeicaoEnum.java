@@ -1,4 +1,10 @@
 package com.CaloriesCalculator.model;
 
-public class TipoRefeicaoEnum {
+public enum TipoRefeicaoEnum {
+    CAFE,
+    ALMOCO,
+    LANCHE,
+    JANTA,
+    SUPLEMENTO,
+    OUTRO
 }
