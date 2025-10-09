@@ -1,13 +1,13 @@
 package com.CaloriesCalculator.controller;
-
+import com.CaloriesCalculator.client.TacoGraphQLApiClient;
+import com.CaloriesCalculator.dto.ProdutoAlimenticioDto;
 import com.CaloriesCalculator.model.ProdutoAlimenticioModel;
 import com.CaloriesCalculator.usecase.ProdutoAlimenticioUseCase;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/produto-alimenticio")
@@ -15,8 +15,11 @@ public class ProdutoController {
 
     private final ProdutoAlimenticioUseCase produtoAlimenticioUseCase;
 
-    public ProdutoController(ProdutoAlimenticioUseCase produtoAlimenticioUseCase){
+    private final TacoGraphQLApiClient tacoGraphQLApiClient;
+
+    public ProdutoController(ProdutoAlimenticioUseCase produtoAlimenticioUseCase, TacoGraphQLApiClient tacoGraphQLApiClient){
         this.produtoAlimenticioUseCase = produtoAlimenticioUseCase;
+        this.tacoGraphQLApiClient = tacoGraphQLApiClient;
     }
     // CRUD Produtos alimenticios
 
@@ -30,16 +33,14 @@ public class ProdutoController {
 
     @PostMapping("/salvar")
     public String SalvarCadastroProdutoAlimenticio(@ModelAttribute("produtoAlimenticio") ProdutoAlimenticioModel produtoAlimenticio){
-        System.out.println("id" + produtoAlimenticio.getId());
-        System.out.println("titulo" + produtoAlimenticio.getTitulo());
-        System.out.println("tipo" + produtoAlimenticio.getTipo());
-        System.out.println("kcal" + produtoAlimenticio.getKcal());
-        System.out.println("carboidratos" + produtoAlimenticio.getCarboidratos());
-        System.out.println("proteinas" + produtoAlimenticio.getProteinas());
-        System.out.println("gordurasGerais" + produtoAlimenticio.getGorduraGerais());
-        System.out.println("peso" + produtoAlimenticio.getPeso());
-
         produtoAlimenticioUseCase.cadastrarProdutoAlimenticio(produtoAlimenticio);
         return "redirect:../?cadastro=sucesso";
+    }
+    // List<ProdutoAlimenticioDto>
+    @GetMapping("/BuscarProdutoApi")
+    public String BuscarProdutoApi(@RequestParam("produtoAlimenticio") String produtoAlimenticio, Model model){
+        List<ProdutoAlimenticioDto> ProdutosLista = tacoGraphQLApiClient.buscarProdutoApi(produtoAlimenticio);
+        model.addAttribute("ProdutosLista", ProdutosLista);
+        return "home";
     }
 }
