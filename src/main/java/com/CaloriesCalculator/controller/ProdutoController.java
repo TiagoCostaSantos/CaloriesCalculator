@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/produto-alimenticio")
@@ -35,11 +36,25 @@ public class ProdutoController {
         produtoAlimenticioUseCase.cadastrarProdutoAlimenticio(produtoAlimenticio);
         return "redirect:../?cadastro=sucesso";
     }
-    // List<ProdutoAlimenticioDto>
-    @GetMapping("/BuscarProdutoApi")
-    public String BuscarProdutoApi(@RequestParam("produtoAlimenticio") String produtoAlimenticio, Model model){
-        List<ProdutoAlimenticioDto> ProdutosLista = tacoGraphQLApiClient.buscarProdutoApi(produtoAlimenticio);
-        model.addAttribute("ProdutosLista", ProdutosLista);
-        return "home";
+    // Busca na API e no Banco de Dados H2
+    @GetMapping("/buscar-produto")
+    public String BuscarProdutos(@RequestParam(value = "produtoAlimenticio", required = false) String produtoAlimenticio, Model model){
+
+        List<ProdutoAlimenticioModel> ProdutosListaApi;
+        List<ProdutoAlimenticioModel> ProdutosListaBd;
+
+        if(produtoAlimenticio == null || produtoAlimenticio.isEmpty()){
+            ProdutosListaBd = produtoAlimenticioUseCase.todosProdutos();
+            ProdutosListaApi = tacoGraphQLApiClient.buscarTodosProdutosApi();
+        }else{
+            ProdutosListaBd = produtoAlimenticioUseCase.buscarProduto(produtoAlimenticio);
+            ProdutosListaApi = tacoGraphQLApiClient.buscarProdutoApi(produtoAlimenticio);
+        }
+
+        //Concatenando as listas
+        List<ProdutoAlimenticioModel> ListaGeral = Stream.concat(ProdutosListaBd.stream(), ProdutosListaApi.stream()).toList();
+        model.addAttribute("ProdutosLista", ListaGeral);
+
+        return "buscarProduto";
     }
 }
