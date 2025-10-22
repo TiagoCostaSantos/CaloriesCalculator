@@ -36,11 +36,11 @@
 <a href="../">Voltar</a>
 <center><br><br><br>
   <h1>Buscar Produto Alimenticio</h1>
-  <form th:action="@{/produto-alimenticio/BuscarProdutoApi}" th:String="${produtoAlimenticio}" method="get">
+  <form th:action="@{/produto-alimenticio/buscar-produto}" th:String="${produtoAlimenticio}" method="get">
     Digite o produto alimenticio para busca: <input type="text" name="produtoAlimenticio" th:String="*{produtoAlimenticio}"><button type="submit">Pesquisar</button>
   </form>
 
-  <!-- TODO esconder tabela de listas quando não tiver nenhuma pesquisa ou aparecer varios produtos aleatorios /-->
+  <!-- TODO FILTRO POR ORDEM ALFABETICA, E COLOCAR SCROLL NA LISTA PARA NÃO PRECISAR ABAIXAR A PAGINA TODA -->
   <br>
   <br>
   <table class="tabela-produtos">
@@ -53,11 +53,11 @@
       <th></th>
     </tr>
     <tr th:each="p : ${ProdutosLista}">
-      <td th:text="${p.name}"></td>
-      <td th:text="${p.category.name}"></td>
-      <td th:text="${p.nutrients.kcal}"></td>
-      <td th:text="${p.nutrients.carbohydrates}"></td>
-      <td th:text="${p.nutrients.protein}"></td>
+      <td th:text="${p.titulo}"></td>
+      <td th:text="${p.tipo}"></td>
+      <td th:text="${p.kcal}"></td>
+      <td th:text="${p.carboidratos}"></td>
+      <td th:text="${p.proteinas}"></td>
       <td>Adicionar a dieta</td>
     </tr>
   </table>

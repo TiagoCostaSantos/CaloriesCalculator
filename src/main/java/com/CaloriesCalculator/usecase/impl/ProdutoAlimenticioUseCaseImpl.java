@@ -6,6 +6,8 @@ import com.CaloriesCalculator.model.ProdutoAlimenticioModel;
 import com.CaloriesCalculator.usecase.ProdutoAlimenticioUseCase;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProdutoAlimenticioUseCaseImpl implements ProdutoAlimenticioUseCase {
@@ -15,6 +17,7 @@ public class ProdutoAlimenticioUseCaseImpl implements ProdutoAlimenticioUseCase 
     public ProdutoAlimenticioUseCaseImpl(ProdutoAlimenticioRepository produtoAlimenticioRepository){
         this.produtoAlimenticioRepository = produtoAlimenticioRepository;
     }
+
     @Override
     @Transactional
     public void cadastrarProdutoAlimenticio(ProdutoAlimenticioModel produtoAlimenticioModel){
@@ -29,5 +32,32 @@ public class ProdutoAlimenticioUseCaseImpl implements ProdutoAlimenticioUseCase 
         pe.setDescricao(produtoAlimenticioModel.getDescricao());
 
         produtoAlimenticioRepository.save(pe);
+    }
+
+    @Override
+    public List<ProdutoAlimenticioModel> todosProdutos(){
+        List<ProdutoAlimenticioEntity> entities = produtoAlimenticioRepository.findAll();
+        return entities.stream().map(this :: entityToModel).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProdutoAlimenticioModel> buscarProduto(String titulo) {
+        List<ProdutoAlimenticioEntity> entities = produtoAlimenticioRepository.findByTituloContainingIgnoreCase(titulo);
+        return entities.stream().map(this :: entityToModel).collect(Collectors.toList());
+    }
+
+    public ProdutoAlimenticioModel entityToModel(ProdutoAlimenticioEntity produtoAlimenticioEntity){
+        ProdutoAlimenticioModel model = new ProdutoAlimenticioModel();
+        model.setId(produtoAlimenticioEntity.getId());
+        model.setTitulo(produtoAlimenticioEntity.getTitulo());
+        model.setTipo(produtoAlimenticioEntity.getTipo());
+        model.setKcal(produtoAlimenticioEntity.getKcal());
+        model.setCarboidratos(produtoAlimenticioEntity.getCarboidratos());
+        model.setProteinas(produtoAlimenticioEntity.getProteinas());
+        model.setGorduraGerais(produtoAlimenticioEntity.getGorduraGerais());
+        model.setDescricao(produtoAlimenticioEntity.getDescricao());
+        model.setPeso(produtoAlimenticioEntity.getPeso());
+
+        return model;
     }
 }
