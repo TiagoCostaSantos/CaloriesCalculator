@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Usuario</title>
+</head>
+<body>
+    <center>
+    <div><br>
+        <!-- Exibe a mensagem de erro se existir -->
+        <div th:if="${erro}" style="color: red; font-weight: bold;">
+            <p th:text="${erro}"></p>
+        </div>
+        <h1>Login</h1>
+        <form th:action="@{/autenticar}" th:object="${user}" method="post">
+            Email:<input th:field="*{email}" type="email"><br><br>
+            Senha: <input th:field="*{password}" type="password"><br><br>
+            <button type="submit">Entrar</button>
+        </form>
+        <br>Não possui uma conta? <a href="/usuario/cadastrar">Cadastrar-se</a>
+    </div>
+    </center>
+</body>
+</html>

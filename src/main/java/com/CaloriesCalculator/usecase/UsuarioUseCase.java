@@ -4,4 +4,6 @@ import com.CaloriesCalculator.model.UsuarioModel;
 public interface UsuarioUseCase {
 
     void cadastrarUsuario(UsuarioModel usuarioModel);
+
+    boolean autenticarUsuario(String email, String password);
 }
