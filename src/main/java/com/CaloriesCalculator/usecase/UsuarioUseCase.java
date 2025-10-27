@@ -1,9 +1,12 @@
 package com.CaloriesCalculator.usecase;
+import com.CaloriesCalculator.database.entity.UsuarioEntity;
 import com.CaloriesCalculator.model.UsuarioModel;
+
+import java.util.Optional;
 
 public interface UsuarioUseCase {
 
     void cadastrarUsuario(UsuarioModel usuarioModel);
 
-    boolean autenticarUsuario(String email, String password);
+    Optional<UsuarioEntity> buscarPorEmail(String email);
 }

@@ -6,15 +6,25 @@
 </head>
 <body>
     <center>
+    <!-- Logout realizado -->
+    <p th:if="${param.logout}" style="color:green;">
+        Logout realizado com sucesso.
+    </p>
+    <!-- Sessão expirada / timeout -->
+    <p th:if="${param.expired}" style="color:orange;">
+        Sua sessão expirou. Faça login novamente.
+    </p>
+    <p th:if="${param.timeout}" style="color:orange;">
+        Sua sessão expirou. Faça login novamente.
+    </p>
+    <p th:if="${param.error}" style="color:red;">
+        Email ou senha incorreta!
+    </p>
     <div><br>
-        <!-- Exibe a mensagem de erro se existir -->
-        <div th:if="${erro}" style="color: red; font-weight: bold;">
-            <p th:text="${erro}"></p>
-        </div>
         <h1>Login</h1>
-        <form th:action="@{/autenticar}" th:object="${user}" method="post">
-            Email:<input th:field="*{email}" type="email"><br><br>
-            Senha: <input th:field="*{password}" type="password"><br><br>
+        <form action="/login" method="post">
+            Email:<input name="username" type="email"><br><br>
+            Senha: <input name="password" type="password"><br><br>
             <button type="submit">Entrar</button>
         </form>
         <br>Não possui uma conta? <a href="/usuario/cadastrar">Cadastrar-se</a>

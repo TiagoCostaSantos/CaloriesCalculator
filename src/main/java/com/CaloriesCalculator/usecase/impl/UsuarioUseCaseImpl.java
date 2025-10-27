@@ -5,7 +5,6 @@ import com.CaloriesCalculator.database.repository.UsuarioRepository;
 import com.CaloriesCalculator.model.UsuarioModel;
 import com.CaloriesCalculator.usecase.UsuarioUseCase;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
@@ -37,19 +36,11 @@ public class UsuarioUseCaseImpl implements UsuarioUseCase {
         Ue.setPeso(usuarioModel.getPeso());
 
         usuarioRepository.save(Ue);
-        // TODO FAZER JWT (TOKEN) DE ACESSO QUANDO CRIA?
         // falta FichaALimentarID
     }
 
     @Override
-    public boolean autenticarUsuario(String email, String password){
-        Optional<UsuarioEntity> usuarioOpt = usuarioRepository.findByEmail(email);
-        if(usuarioOpt.isEmpty()){
-            return false;
-        }
-        UsuarioEntity usuario = usuarioOpt.get();
-        String passwordBanco = usuario.getPassword();
-        // Faz a comparação segura: raw vs encoded
-        return passwordEncoder.matches(password, passwordBanco);
+    public Optional<UsuarioEntity> buscarPorEmail(String email){
+        return usuarioRepository.findByEmail(email);
     }
 }

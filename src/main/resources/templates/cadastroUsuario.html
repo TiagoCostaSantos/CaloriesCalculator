@@ -5,7 +5,6 @@
   <title>Cadastro Usuario</title>
 </head>
 <body>
-<a href="../">Voltar</a>
 <center><br><br><br>
   <h1>Cadastro do Usuario</h1>
   <form th:action="@{/usuario/salvar}" th:object="${usuario}" method="post">
@@ -16,7 +15,8 @@
     Data de nascimento: <input required type="date" th:field="*{dataNascimento}" name="dataNascimento" id="dataNascimento"><br><br>
     Altura: <input required type="number" th:field="*{altura}" name="altura" id="altura"><br><br>
     Peso: <input required type="number" th:field="*{peso}" name="peso" id="peso"><br><br>
-    <button type="submit">Cadastrar</button>
+    <button type="submit">Cadastrar</button><Br><br>
+    Já possui uma conta? <a href="../login">Login</a>
   </form>
 </center>
 </body>

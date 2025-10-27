@@ -1,19 +1,12 @@
 package com.CaloriesCalculator.controller;
 
 import com.CaloriesCalculator.client.TacoGraphQLApiClient;
-import com.CaloriesCalculator.database.repository.UsuarioRepository;
-import com.CaloriesCalculator.dto.ProdutoAlimenticioDto;
-import com.CaloriesCalculator.model.ProdutoAlimenticioModel;
 import com.CaloriesCalculator.model.UsuarioModel;
 import com.CaloriesCalculator.usecase.UsuarioUseCase;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
+import java.security.Principal;
 
 @Controller
 public class HomeController {
@@ -32,15 +25,9 @@ public class HomeController {
         return "login";
     }
 
-    @PostMapping("/autenticar")
-    public String autenticarLogin(@ModelAttribute("user") UsuarioModel usuarioModel, Model model){
-        boolean validado = usuarioUseCase.autenticarUsuario(usuarioModel.getEmail(), usuarioModel.getPassword());
-
-        if(validado == true){
-            return "index";
-        }else{
-            model.addAttribute("erro", "Email ou senha inválidos");
-            return "login";
-        }
+    @GetMapping("/home")
+    public String mostrarPagIndex(Principal principal, Model model){
+        model.addAttribute("usuarioLogado", principal.getName());
+        return "index";
     }
 }

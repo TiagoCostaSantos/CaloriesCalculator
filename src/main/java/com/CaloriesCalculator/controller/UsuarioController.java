@@ -28,6 +28,6 @@ public class UsuarioController {
     @PostMapping("/salvar")
     public String SalvarCadastroUsuario(@ModelAttribute("usuario") UsuarioModel usuarioModel){
         usuarioUseCase.cadastrarUsuario(usuarioModel);
-        return "index";
+        return "redirect:/login";
     }
 }

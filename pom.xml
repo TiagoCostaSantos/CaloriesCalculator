@@ -71,7 +71,6 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 		<!-- close API Web Client Dependencies -->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
