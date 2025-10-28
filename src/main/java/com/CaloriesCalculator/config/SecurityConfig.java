@@ -24,6 +24,7 @@ public class SecurityConfig {
     private PasswordEncoder passwordEncoder;
 
     // TODO VERIFICAR CONFIGURAÇÕES DE ACESSO
+    // TODO VERIFICAR QUANTIDADE DE VEZES QUE PODEM CHAMAR O BACK END PARA NÃO DAR SOBRECARGA EM CADA CHAMADA ESPECIFICA (TIPO CADASTRO USUARIO, EDITAR USUARIO)
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -38,7 +39,7 @@ public class SecurityConfig {
                 .and()
                 .formLogin()
                     .loginPage("/login")
-                    .defaultSuccessUrl("/home")
+                    .defaultSuccessUrl("/home", true)
                     .permitAll()
                 .and()
                 .logout()

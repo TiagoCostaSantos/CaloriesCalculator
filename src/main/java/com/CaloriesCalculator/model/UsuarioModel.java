@@ -14,6 +14,7 @@ public class UsuarioModel {
     private Double altura;
     private Double peso;
     private Long FichaAlimentarId;
+    private String sexo;
 
     public long getId() {
         return id;
@@ -93,5 +94,13 @@ public class UsuarioModel {
 
     public void setFichaAlimentarId(Long fichaAlimentarId) {
         FichaAlimentarId = fichaAlimentarId;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 }

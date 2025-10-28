@@ -20,6 +20,9 @@
     <p th:if="${param.error}" style="color:red;">
         Email ou senha incorreta!
     </p>
+    <p th:if="${param.cadastrado}" style="color:green;">
+       Usuario Cadastrado com sucesso!
+    </p>
     <div><br>
         <h1>Login</h1>
         <form action="/login" method="post">

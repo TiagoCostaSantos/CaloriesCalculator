@@ -6,7 +6,9 @@ import java.util.Optional;
 
 public interface UsuarioUseCase {
 
-    void cadastrarUsuario(UsuarioModel usuarioModel);
+    boolean cadastrarUsuario(UsuarioModel usuarioModel);
 
     Optional<UsuarioEntity> buscarPorEmail(String email);
+
+    void atualizarUsuario(UsuarioModel usuarioModel,String email);
 }

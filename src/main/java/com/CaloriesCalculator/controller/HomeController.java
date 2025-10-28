@@ -1,21 +1,19 @@
 package com.CaloriesCalculator.controller;
 
 import com.CaloriesCalculator.client.TacoGraphQLApiClient;
+import com.CaloriesCalculator.database.entity.UsuarioEntity;
 import com.CaloriesCalculator.model.UsuarioModel;
 import com.CaloriesCalculator.usecase.UsuarioUseCase;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
-
-    private final TacoGraphQLApiClient tacoGraphQLApiClient;
     private final UsuarioUseCase usuarioUseCase;
-
-    public HomeController(TacoGraphQLApiClient tacoGraphQLApiClient, UsuarioUseCase usuarioUseCase){
-        this.tacoGraphQLApiClient = tacoGraphQLApiClient;
+    public HomeController(UsuarioUseCase usuarioUseCase){
         this.usuarioUseCase = usuarioUseCase;
     }
 
@@ -29,5 +27,13 @@ public class HomeController {
     public String mostrarPagIndex(Principal principal, Model model){
         model.addAttribute("usuarioLogado", principal.getName());
         return "index";
+    }
+
+    @GetMapping("/meuPerfil")
+    public String mostrarPagMeuPerfil(Principal principal, Model model){
+        Optional<UsuarioEntity> user = usuarioUseCase.buscarPorEmail(principal.getName());
+        UsuarioEntity usuario = user.get();
+        model.addAttribute("usuario", usuario);
+        return "meuPerfil";
     }
 }

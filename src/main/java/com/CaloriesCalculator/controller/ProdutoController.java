@@ -34,8 +34,9 @@ public class ProdutoController {
     @PostMapping("/salvar")
     public String SalvarCadastroProdutoAlimenticio(@ModelAttribute("produtoAlimenticio") ProdutoAlimenticioModel produtoAlimenticio){
         produtoAlimenticioUseCase.cadastrarProdutoAlimenticio(produtoAlimenticio);
-        return "redirect:../?cadastro=sucesso";
+        return "redirect:../home?cadastro=sucesso";
     }
+
     // Busca na API e no Banco de Dados H2
     @GetMapping("/buscar-produto")
     public String BuscarProdutos(@RequestParam(value = "produtoAlimenticio", required = false) String produtoAlimenticio, Model model){

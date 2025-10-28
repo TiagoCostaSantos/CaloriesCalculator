@@ -1,6 +1,9 @@
 package com.CaloriesCalculator.database.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,23 +15,36 @@ public class UsuarioEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 60)
+    @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "O nome deve conter apenas letras e espaços")
+    @Size(min = 2, max = 60, message = "O nome deve ter entre 2 e 60 caracteres")
     private String nome;
-    @Column(length = 200)
+
+    @Column(length = 100)
+    @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "O nome deve conter apenas letras e espaços")
+    @Size(min = 1, max = 100, message = "O nome deve ter entre 2 e 60 caracteres")
     private String sobrenome;
+
     @Column(nullable = false, length = 200)
     private String password;
+
     @Column(unique = true,nullable = false, length = 200)
     private String email;
+
     @Column(nullable = false, length = 30)
     private LocalDate dataNascimento;
+
     @Column(nullable = false, length = 30)
     private LocalDate dataCadastro;
+
     @Column(nullable = false, length = 20)
     private Double altura;
+
     @Column(nullable = false, length = 20)
     private Double peso;
 
+    @Column(nullable = false, length = 5)
+    private String sexo;
 
     //Cascade define que todas as ações feitas no usuario, cascateiam para as fichas alimentares (apagar, criar)
     @OneToMany(mappedBy = "usuario_id", cascade = CascadeType.ALL)
@@ -115,5 +131,11 @@ public class UsuarioEntity {
         this.fichasAlimentares = fichasAlimentares;
     }
 
+    public String getSexo() {
+        return sexo;
+    }
 
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
 }

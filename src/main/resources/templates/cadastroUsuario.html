@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:href="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>Cadastro Usuario</title>
 </head>
 <body>
 <center><br><br><br>
+  <p th:if="${param.emailExists}" style="color:red;">
+    Email ja cadastrado!, deseja fazer <a href="../login">login</a> ?
+  </p>
   <h1>Cadastro do Usuario</h1>
   <form th:action="@{/usuario/salvar}" th:object="${usuario}" method="post">
     Nome: <input required type="text" name="titulo" th:field="*{nome}">
@@ -13,6 +16,11 @@
     Senha: <input required type="password" th:field="*{password}" name="password" id="password"><br><br>
     Email: <input required type="email" th:field="*{email}" name="email" id="email"><br><br>
     Data de nascimento: <input required type="date" th:field="*{dataNascimento}" name="dataNascimento" id="dataNascimento"><br><br>
+    Sexo: <select th:field="*{sexo}" name="sexo" id="sexo">
+            <option value="masc">Masculino</option>
+            <option value="fem">Feminino</option>
+            <option value="na">Prefiro não dizer</option>
+          </select><br><br>
     Altura: <input required type="number" th:field="*{altura}" name="altura" id="altura"><br><br>
     Peso: <input required type="number" th:field="*{peso}" name="peso" id="peso"><br><br>
     <button type="submit">Cadastrar</button><Br><br>
