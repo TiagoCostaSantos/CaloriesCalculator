@@ -3,8 +3,10 @@ import com.CaloriesCalculator.client.TacoGraphQLApiClient;
 import com.CaloriesCalculator.dto.ProdutoAlimenticioDto;
 import com.CaloriesCalculator.model.ProdutoAlimenticioModel;
 import com.CaloriesCalculator.usecase.ProdutoAlimenticioUseCase;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Stream;
@@ -32,7 +34,11 @@ public class ProdutoController {
     }
 
     @PostMapping("/salvar")
-    public String SalvarCadastroProdutoAlimenticio(@ModelAttribute("produtoAlimenticio") ProdutoAlimenticioModel produtoAlimenticio){
+    public String SalvarCadastroProdutoAlimenticio(@Valid @ModelAttribute("produtoAlimenticio") ProdutoAlimenticioModel produtoAlimenticio, BindingResult result, Model model){
+        if(result.hasErrors()){
+            model.addAttribute("erros", result.getAllErrors());
+            return "cadastroProdutoAlimenticio";
+        }
         produtoAlimenticioUseCase.cadastrarProdutoAlimenticio(produtoAlimenticio);
         return "redirect:../home?cadastro=sucesso";
     }

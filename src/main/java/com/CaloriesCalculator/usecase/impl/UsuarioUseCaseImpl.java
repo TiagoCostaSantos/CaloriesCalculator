@@ -7,8 +7,6 @@ import com.CaloriesCalculator.usecase.UsuarioUseCase;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -36,12 +34,9 @@ public class UsuarioUseCaseImpl implements UsuarioUseCase {
             UsuarioEntity Ue = new UsuarioEntity();
             Ue.setNome(usuarioModel.getNome());
             Ue.setSobrenome(usuarioModel.getSobrenome());
-            Ue.setAltura(usuarioModel.getAltura());
-            Ue.setPeso(usuarioModel.getPeso());
             Ue.setPassword(passwordEncoder.encode(usuarioModel.getPassword()));
             Ue.setEmail(usuarioModel.getEmail());
             Ue.setDataNascimento(usuarioModel.getDataNascimento());
-            Ue.setSexo(usuarioModel.getSexo());
             Ue.setDataCadastro(LocalDate.now());
             usuarioRepository.save(Ue);
             return true;
@@ -60,8 +55,6 @@ public class UsuarioUseCaseImpl implements UsuarioUseCase {
         if(!usuarioModel.getPassword().isEmpty()){
             usuarioExistente.setPassword(passwordEncoder.encode(usuarioModel.getPassword()));
         }
-        usuarioExistente.setAltura(usuarioModel.getAltura());
-        usuarioExistente.setPeso(usuarioModel.getPeso());
         usuarioRepository.save(usuarioExistente);
     }
     @Override

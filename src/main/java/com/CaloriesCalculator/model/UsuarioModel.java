@@ -1,27 +1,40 @@
 package com.CaloriesCalculator.model;
 
+import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 public class UsuarioModel {
 
-    private long id;
+    @NotBlank(message = "campo obrigatorio")
+    @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "O nome deve conter apenas letras e espaços")
+    @Size(min = 2, max = 60, message = "O nome deve ter entre 2 e 60 caracteres")
     private String nome;
+
+    @NotBlank(message = "campo é obrigatório")
+    @Pattern(regexp = "^[A-Za-zÀ-ÿ\\s]+$", message = "O sobrenome deve conter apenas letras e espaços")
+    @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres")
     private String sobrenome;
+
+    @NotBlank(message = "A Senha é obrigatoria")
+    @Size(min = 5, max = 40, message = "A senha deve possuir entre 5 a 30 caracteres")
     private String password;
+
+    @NotBlank(message = "email é obrigatório.")
+    @Email(message = "Informe um e-mail válido.")
+    @Size(max = 100, message = "O e-mail pode ter no máximo 100 caracteres.")
     private String email;
+
+    @NotNull(message = "A data de nascimento é obrigatória.")
+    @Past(message = "A data de nascimento deve ser anterior à data atual.")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
-    private LocalDate dataCadastro;
-    private Double altura;
-    private Double peso;
-    private Long FichaAlimentarId;
-    private String sexo;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    @AssertTrue(message = "A data de nascimento deve ser posterior a 01/01/1900.")
+    public boolean isDataNascimentoValida() {
+        if (dataNascimento == null) return true;
+        LocalDate dataMinima = LocalDate.of(1900, 1, 1);
+        return !dataNascimento.isBefore(dataMinima);
     }
 
     public String getNome() {
@@ -64,43 +77,4 @@ public class UsuarioModel {
         this.dataNascimento = dataNascimento;
     }
 
-    public LocalDate getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(LocalDate dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
-
-    public Double getAltura() {
-        return altura;
-    }
-
-    public void setAltura(Double altura) {
-        this.altura = altura;
-    }
-
-    public Double getPeso() {
-        return peso;
-    }
-
-    public void setPeso(Double peso) {
-        this.peso = peso;
-    }
-
-    public Long getFichaAlimentarId() {
-        return FichaAlimentarId;
-    }
-
-    public void setFichaAlimentarId(Long fichaAlimentarId) {
-        FichaAlimentarId = fichaAlimentarId;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
 }

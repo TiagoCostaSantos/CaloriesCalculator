@@ -6,6 +6,13 @@
 </head>
 <body>
     <center>
+
+        <!-- Erros de tratamentos de dados -->
+        <div th:if="${erros}" style="margin-top:15px;">
+            <ul>
+                <li th:each="erro : ${erros}" th:text="${erro.defaultMessage}" class="error"></li>
+            </ul>
+        </div>
     <!-- Logout realizado -->
     <p th:if="${param.logout}" style="color:green;">
         Logout realizado com sucesso.
