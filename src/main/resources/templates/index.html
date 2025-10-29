@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+    <a href="meuPerfil" style="float:right;">Meu perfil</a>
     <center><br><br>
-    <h1>Hello World</h1><br></br>
+    <h1>Hello World</h1>
+        Bem vindo: <span th:text="${usuarioLogado}"></span></br><br><br>
         <a href="/produto-alimenticio/cadastrar">Cadastrar Produto</a> |
         <a href="/usuario/cadastrar">Cadastrar Usuario</a> |
         <a href="/produto-alimenticio/buscar-produto">Lista de Produtos</a> |

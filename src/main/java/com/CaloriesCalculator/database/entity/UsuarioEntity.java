@@ -1,6 +1,9 @@
 package com.CaloriesCalculator.database.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,28 +15,30 @@ public class UsuarioEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 60)
     private String nome;
-    @Column(length = 200)
+
+    @Column(length = 100)
     private String sobrenome;
+
     @Column(nullable = false, length = 200)
     private String password;
+
     @Column(unique = true,nullable = false, length = 200)
     private String email;
+
     @Column(nullable = false, length = 30)
     private LocalDate dataNascimento;
+
     @Column(nullable = false, length = 30)
     private LocalDate dataCadastro;
-    @Column(nullable = false, length = 20)
-    private Double altura;
-    @Column(nullable = false, length = 20)
-    private Double peso;
 
+    @OneToOne(mappedBy = "usuario_id", cascade = CascadeType.ALL)
+    private DadosUsuarioEntity dados;
 
     //Cascade define que todas as ações feitas no usuario, cascateiam para as fichas alimentares (apagar, criar)
     @OneToMany(mappedBy = "usuario_id", cascade = CascadeType.ALL)
     private List<FichaAlimentarEntity> fichasAlimentares;
-
 
     public Long getId() {
         return id;
@@ -91,22 +96,6 @@ public class UsuarioEntity {
         this.dataCadastro = dataCadastro;
     }
 
-    public Double getAltura() {
-        return altura;
-    }
-
-    public void setAltura(Double altura) {
-        this.altura = altura;
-    }
-
-    public Double getPeso() {
-        return peso;
-    }
-
-    public void setPeso(Double peso) {
-        this.peso = peso;
-    }
-
     public List<FichaAlimentarEntity> getFichasAlimentares() {
         return fichasAlimentares;
     }
@@ -114,6 +103,5 @@ public class UsuarioEntity {
     public void setFichasAlimentares(List<FichaAlimentarEntity> fichasAlimentares) {
         this.fichasAlimentares = fichasAlimentares;
     }
-
 
 }

@@ -1,15 +1,46 @@
 package com.CaloriesCalculator.model;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.*;
+
 public class ProdutoAlimenticioModel {
 
     private Long id;
+
+    @NotBlank(message = "O Titulo é obrigatório")
+    @Size(min = 2, max = 130, message = "Titulo invalido")
     private String titulo;
+
+    @NotBlank(message = "O Tipo é obrigatório")
+    @Size(min = 2, max = 130, message = "Tipo invalido")
+    @Column(nullable = false, length = 30)
     private String tipo;
+
+    @NotNull(message = "As Kcal é obrigatoria")
+    @Min(value = 0, message = "O valor minimo permitido é 0")
+    @Max(value = 3000, message = "O valor maximo permitido é 3000")
     private double kcal;
+
+    @NotNull(message = "Os Carboidratos é obrigatorio")
+    @Min(value = 0, message = "O valor minimo permitido é 0")
+    @Max(value = 3000, message = "O valor maximo permitido é 3000")
     private double carboidratos;
+
+    @NotNull(message = "As proteinas é obrigatoria")
+    @Min(value = 0, message = "O valor minimo permitido é 0")
+    @Max(value = 3000, message = "O valor maximo permitido é 3000")
     private double proteinas;
+
+    @NotNull(message = "As Gorduras Gerais é obrigatoria")
+    @Min(value = 0, message = "O valor minimo permitido é 0")
+    @Max(value = 3000, message = "O valor maximo permitido é 3000")
     private double gorduraGerais; // não possue na api
+
+    @Size(min = 0, max = 200, message = "Mensagem invalida")
     private String descricao;
+
+    @Min(value = 0, message = "O valor minimo permitido é 0")
+    @Max(value = 3000, message = "O valor maximo permitido é 3000")
     private double peso; // não possue na api
 
     public Long getId() {return id;}
