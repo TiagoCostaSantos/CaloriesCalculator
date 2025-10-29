@@ -24,8 +24,7 @@ public class HomeController {
     }
 
     @GetMapping("/home")
-    public String mostrarPagIndex(Principal principal, Model model){
-        model.addAttribute("usuarioLogado", principal.getName());
+    public String mostrarPagIndex(Model model){
         return "index";
     }
 

@@ -3,7 +3,12 @@ package com.CaloriesCalculator.controller;
 import com.CaloriesCalculator.database.entity.UsuarioEntity;
 import com.CaloriesCalculator.model.UsuarioModel;
 import com.CaloriesCalculator.usecase.UsuarioUseCase;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.naming.Binding;
 import java.security.Principal;
+import java.security.Security;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -25,7 +31,12 @@ public class UsuarioController {
     }
 
     @GetMapping("/cadastrar")
-    public String FormCadastro(Model model){
+    public String FormCadastro(Principal principal, Model model){
+
+        if(principal != null){
+            // se tentarem entrar nesta pagina, logada, faz o logout e manda pro login
+            return "redirect:/logout?redirectTo=login";
+        }
         model.addAttribute("usuario", new UsuarioModel());
         return "cadastroUsuario";
     }
@@ -48,10 +59,8 @@ public class UsuarioController {
                     return "redirect:/login?cadastrado";
                 }
                 return "redirect:/usuario/cadastrar?emailExists";
-            }else{
-                usuarioUseCase.atualizarUsuario(usuarioModel, principal.getName());
-                return "redirect:/meuPerfil?dadosAtualizados";
             }
-
+            usuarioUseCase.atualizarUsuario(usuarioModel, principal.getName());
+            return "redirect:/meuPerfil?dadosAtualizados";
     }
 }
