@@ -62,6 +62,6 @@ public class ProdutoController {
         List<ProdutoAlimenticioModel> ListaGeral = Stream.concat(ProdutosListaBd.stream(), ProdutosListaApi.stream()).toList();
         model.addAttribute("ProdutosLista", ListaGeral);
 
-        return "buscarProduto";
+        return "fragments/retornoProdutos :: conteudo";
     }
 }

@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests()
                     .requestMatchers(HttpMethod.POST, "/usuario/salvar").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/login", "/usuario/cadastrar", "/", "/home").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/login", "/usuario/cadastrar", "/", "/home", "/Grafico", "/produto-alimenticio/buscar-produto").permitAll()
                     .requestMatchers("/h2-console/**","/css/**", "/js/**", "/img/**", "/webjars/**").permitAll()
                     .anyRequest().authenticated()
                 .and()

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/styleIndex.css}" rel="stylesheet">
+    <title>Fragmentos do Buscar Produtos</title>
+</head>
+<body>
+    <div class="scrollable-div" th:fragment="conteudo">
+        <table class="tabela-produtos">
+            <tr>
+                <th>Produto</th>
+                <th>Categoria</th>
+                <th>Kcal</th>
+                <th>Carboidratos</th>
+                <th>Proteinas</th>
+                <th></th>
+            </tr>
+            <tr th:each="p : ${ProdutosLista}">
+                <td th:text="${p.titulo}"></td>
+                <td th:text="${p.tipo}"></td>
+                <td th:text="${p.kcal}"></td>
+                <td th:text="${p.carboidratos}"></td>
+                <td th:text="${p.proteinas}"></td>
+                <td>Adicionar a dieta</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+
