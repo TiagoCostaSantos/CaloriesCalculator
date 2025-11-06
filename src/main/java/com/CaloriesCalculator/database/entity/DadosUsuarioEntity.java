@@ -36,7 +36,6 @@ public class DadosUsuarioEntity {
     @JoinColumn(name = "usuario_id")
     private UsuarioEntity usuario_id;
 
-
     public Long getId() {
         return id;
     }

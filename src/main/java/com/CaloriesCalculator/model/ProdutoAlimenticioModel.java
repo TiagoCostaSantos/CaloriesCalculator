@@ -5,6 +5,8 @@ import jakarta.validation.constraints.*;
 
 public class ProdutoAlimenticioModel {
 
+    @Min(value = 0, message = "O valor minimo permitido é 0")
+    @Max(value = 3000, message = "O valor maximo permitido é 3000")
     private Long id;
 
     @NotBlank(message = "O Titulo é obrigatório")
@@ -31,7 +33,7 @@ public class ProdutoAlimenticioModel {
     @Max(value = 3000, message = "O valor maximo permitido é 3000")
     private double proteinas;
 
-    @NotNull(message = "As Gorduras Gerais é obrigatoria")
+    // @NOTNUL
     @Min(value = 0, message = "O valor minimo permitido é 0")
     @Max(value = 3000, message = "O valor maximo permitido é 3000")
     private double gorduraGerais; // não possue na api
@@ -42,6 +44,26 @@ public class ProdutoAlimenticioModel {
     @Min(value = 0, message = "O valor minimo permitido é 0")
     @Max(value = 3000, message = "O valor maximo permitido é 3000")
     private double peso; // não possue na api
+
+    private boolean tipoApi = false;
+
+    private boolean selecionado = false;
+
+    public boolean getSelecionado() {
+        return selecionado;
+    }
+
+    public void setSelecionado(boolean selecionado) {
+        this.selecionado = selecionado;
+    }
+
+    public boolean getTipoApi() {
+        return tipoApi;
+    }
+
+    public void setTipoApi(boolean tipoApi) {
+        this.tipoApi = tipoApi;
+    }
 
     public Long getId() {return id;}
 

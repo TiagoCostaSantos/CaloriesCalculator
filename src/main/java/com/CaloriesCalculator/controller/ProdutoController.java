@@ -1,6 +1,5 @@
 package com.CaloriesCalculator.controller;
 import com.CaloriesCalculator.client.TacoGraphQLApiClient;
-import com.CaloriesCalculator.dto.ProdutoAlimenticioDto;
 import com.CaloriesCalculator.model.ProdutoAlimenticioModel;
 import com.CaloriesCalculator.usecase.ProdutoAlimenticioUseCase;
 import jakarta.validation.Valid;
@@ -45,7 +44,7 @@ public class ProdutoController {
 
     // Busca na API e no Banco de Dados H2
     @GetMapping("/buscar-produto")
-    public String BuscarProdutos(@RequestParam(value = "produtoAlimenticio", required = false) String produtoAlimenticio, Model model){
+    public String BuscarProdutos(@RequestParam(value = "produtoAlimenticio", required = false) String produtoAlimenticio,@RequestParam(value = "refeicao", required = false) String refeicao, Model model){
 
         List<ProdutoAlimenticioModel> ProdutosListaApi;
         List<ProdutoAlimenticioModel> ProdutosListaBd;
@@ -60,8 +59,8 @@ public class ProdutoController {
 
         //Concatenando as listas
         List<ProdutoAlimenticioModel> ListaGeral = Stream.concat(ProdutosListaBd.stream(), ProdutosListaApi.stream()).toList();
-        model.addAttribute("ProdutosLista", ListaGeral);
-
+        model.addAttribute("ListaGeral", ListaGeral);
+        model.addAttribute("refeicao", refeicao);
         return "fragments/retornoProdutos :: conteudo";
     }
 }

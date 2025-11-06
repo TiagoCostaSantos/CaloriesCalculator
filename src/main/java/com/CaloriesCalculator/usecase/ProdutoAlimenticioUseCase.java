@@ -1,4 +1,5 @@
 package com.CaloriesCalculator.usecase;
+import com.CaloriesCalculator.database.entity.ProdutoAlimenticioEntity;
 import com.CaloriesCalculator.model.ProdutoAlimenticioModel;
 
 import java.util.List;
@@ -10,4 +11,8 @@ public interface ProdutoAlimenticioUseCase {
     List<ProdutoAlimenticioModel> todosProdutos();
 
     List<ProdutoAlimenticioModel> buscarProduto(String titulo);
+
+    ProdutoAlimenticioModel buscarProdutoById(Long id);
+
+    ProdutoAlimenticioEntity buscarProdutoById2(Long id);
 }

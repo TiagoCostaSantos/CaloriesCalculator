@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .headers().frameOptions().disable() // permite H2 rodar em iframe
                 .and()
                 .authorizeHttpRequests()
-                    .requestMatchers(HttpMethod.POST, "/usuario/salvar").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/usuario/salvar","/usuario/salvarProdutosFichaAlimentar").permitAll()
                     .requestMatchers(HttpMethod.GET, "/login", "/usuario/cadastrar", "/", "/home", "/Grafico", "/produto-alimenticio/buscar-produto").permitAll()
                     .requestMatchers("/h2-console/**","/css/**", "/js/**", "/img/**", "/webjars/**").permitAll()
                     .anyRequest().authenticated()
