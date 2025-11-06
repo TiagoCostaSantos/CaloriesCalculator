@@ -45,9 +45,7 @@ public class ProdutoAlimenticioModel {
     @Max(value = 3000, message = "O valor maximo permitido é 3000")
     private double peso; // não possue na api
 
-    private boolean tipoApi = false;
-
-    private boolean selecionado = false;
+    private boolean selecionado = false; // todo verificar se precisa disso aqui
 
     public boolean getSelecionado() {
         return selecionado;
@@ -55,14 +53,6 @@ public class ProdutoAlimenticioModel {
 
     public void setSelecionado(boolean selecionado) {
         this.selecionado = selecionado;
-    }
-
-    public boolean getTipoApi() {
-        return tipoApi;
-    }
-
-    public void setTipoApi(boolean tipoApi) {
-        this.tipoApi = tipoApi;
     }
 
     public Long getId() {return id;}

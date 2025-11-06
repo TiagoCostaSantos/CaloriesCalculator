@@ -19,7 +19,9 @@
                     <th>Kcal</th>
                     <th>Carboidratos</th>
                     <th>Proteinas</th>
-                    <th>Tipo Api?</th>
+                    <th>Gordura Gerais</th>
+                    <th>Peso</th>
+                    <th>Descricao</th>
                     <th>Adicionar</th>
                 </tr>
                 <tr th:each="p : ${ListaGeral}">
@@ -28,9 +30,11 @@
                     <td th:text="${p.kcal}"></td>
                     <td th:text="${p.carboidratos}"></td>
                     <td th:text="${p.proteinas}"></td>
-                    <td th:text="${p.tipoApi}"></td>
+                    <td th:text="${p.gorduraGerais}"></td>
+                    <td th:text="${p.peso}"></td>
+                    <td th:text="${p.descricao}"></td>
                     <td>
-                        <input type="checkbox" th:value="${p.id + '|' + p.tipoApi}" class="produto-checkbox-modal" name="produtosSelecionados" id="produtosSelecionados">
+                        <input type="checkbox" th:value="${p.id}" class="produto-checkbox-modal" name="produtosSelecionados" id="produtosSelecionados">
                     </td>
                 </tr>
             </table>

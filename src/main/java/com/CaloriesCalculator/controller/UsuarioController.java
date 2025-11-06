@@ -1,7 +1,5 @@
 package com.CaloriesCalculator.controller;
 
-import com.CaloriesCalculator.client.TacoGraphQLApiClient;
-import com.CaloriesCalculator.model.ProdutoAlimenticioModel;
 import com.CaloriesCalculator.model.UsuarioModel;
 import com.CaloriesCalculator.usecase.CookieUseCase;
 import com.CaloriesCalculator.usecase.ProdutoAlimenticioUseCase;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,13 +21,11 @@ import java.util.List;
 public class UsuarioController {
 
     private final UsuarioUseCase usuarioUseCase;
-    private final TacoGraphQLApiClient tacoGraphQLApiClient;
     private final ProdutoAlimenticioUseCase produtoAlimenticioUseCase;
     private final CookieUseCase cookieUseCase;
 
-    public UsuarioController(UsuarioUseCase usuarioUseCase, TacoGraphQLApiClient tacoGraphQLApiClient, ProdutoAlimenticioUseCase produtoAlimenticioUseCase, CookieUseCase cookieUseCase){
+    public UsuarioController(UsuarioUseCase usuarioUseCase, ProdutoAlimenticioUseCase produtoAlimenticioUseCase, CookieUseCase cookieUseCase){
         this.usuarioUseCase = usuarioUseCase;
-        this.tacoGraphQLApiClient = tacoGraphQLApiClient;
         this.produtoAlimenticioUseCase = produtoAlimenticioUseCase;
         this.cookieUseCase = cookieUseCase;
     }
@@ -109,7 +104,6 @@ public class UsuarioController {
 
         return "redirect:/home";
     }
-
 }
 
 

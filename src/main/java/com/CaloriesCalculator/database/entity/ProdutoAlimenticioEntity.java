@@ -14,19 +14,19 @@ public class ProdutoAlimenticioEntity {
 
     @Column(nullable = false, length = 100)
     private String titulo;
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 50)
     private String tipo;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private double kcal;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private double carboidratos;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private double proteinas;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private double gorduraGerais;
     @Column(nullable = false, length = 200)
     private String descricao;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private double peso;
 
     @OneToMany(mappedBy = "produtoAlimenticio_id", cascade = CascadeType.ALL)

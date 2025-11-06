@@ -1,6 +1,5 @@
 package com.CaloriesCalculator.controller;
 
-import com.CaloriesCalculator.client.TacoGraphQLApiClient;
 import com.CaloriesCalculator.database.entity.UsuarioEntity;
 import com.CaloriesCalculator.model.UsuarioModel;
 import com.CaloriesCalculator.usecase.UsuarioUseCase;

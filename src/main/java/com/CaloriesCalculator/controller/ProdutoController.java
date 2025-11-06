@@ -1,5 +1,4 @@
 package com.CaloriesCalculator.controller;
-import com.CaloriesCalculator.client.TacoGraphQLApiClient;
 import com.CaloriesCalculator.model.ProdutoAlimenticioModel;
 import com.CaloriesCalculator.usecase.ProdutoAlimenticioUseCase;
 import jakarta.validation.Valid;
@@ -16,11 +15,8 @@ public class ProdutoController {
 
     private final ProdutoAlimenticioUseCase produtoAlimenticioUseCase;
 
-    private final TacoGraphQLApiClient tacoGraphQLApiClient;
-
-    public ProdutoController(ProdutoAlimenticioUseCase produtoAlimenticioUseCase, TacoGraphQLApiClient tacoGraphQLApiClient){
+    public ProdutoController(ProdutoAlimenticioUseCase produtoAlimenticioUseCase){
         this.produtoAlimenticioUseCase = produtoAlimenticioUseCase;
-        this.tacoGraphQLApiClient = tacoGraphQLApiClient;
     }
     // CRUD Produtos alimenticios
 
@@ -46,20 +42,15 @@ public class ProdutoController {
     @GetMapping("/buscar-produto")
     public String BuscarProdutos(@RequestParam(value = "produtoAlimenticio", required = false) String produtoAlimenticio,@RequestParam(value = "refeicao", required = false) String refeicao, Model model){
 
-        List<ProdutoAlimenticioModel> ProdutosListaApi;
         List<ProdutoAlimenticioModel> ProdutosListaBd;
 
         if(produtoAlimenticio == null || produtoAlimenticio.isEmpty()){
             ProdutosListaBd = produtoAlimenticioUseCase.todosProdutos();
-            ProdutosListaApi = tacoGraphQLApiClient.buscarTodosProdutosApi();
         }else{
             ProdutosListaBd = produtoAlimenticioUseCase.buscarProduto(produtoAlimenticio);
-            ProdutosListaApi = tacoGraphQLApiClient.buscarProdutoApi(produtoAlimenticio);
         }
 
-        //Concatenando as listas
-        List<ProdutoAlimenticioModel> ListaGeral = Stream.concat(ProdutosListaBd.stream(), ProdutosListaApi.stream()).toList();
-        model.addAttribute("ListaGeral", ListaGeral);
+        model.addAttribute("ListaGeral", ProdutosListaBd);
         model.addAttribute("refeicao", refeicao);
         return "fragments/retornoProdutos :: conteudo";
     }
