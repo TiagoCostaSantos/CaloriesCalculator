@@ -2,6 +2,7 @@ package com.CaloriesCalculator.usecase;
 import com.CaloriesCalculator.database.entity.UsuarioEntity;
 import com.CaloriesCalculator.model.UsuarioModel;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UsuarioUseCase {
@@ -11,4 +12,5 @@ public interface UsuarioUseCase {
     Optional<UsuarioEntity> buscarPorEmail(String email);
 
     void atualizarUsuario(UsuarioModel usuarioModel,String email);
+    void salvarProdutoFichaAlimentar(String email, List<String> produtos, int refeicao);
 }

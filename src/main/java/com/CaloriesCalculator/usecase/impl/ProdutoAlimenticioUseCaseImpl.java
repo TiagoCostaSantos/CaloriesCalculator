@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,6 +40,18 @@ public class ProdutoAlimenticioUseCaseImpl implements ProdutoAlimenticioUseCase 
     public List<ProdutoAlimenticioModel> todosProdutos(){
         List<ProdutoAlimenticioEntity> entities = produtoAlimenticioRepository.findAll();
         return entities.stream().map(this :: entityToModel).collect(Collectors.toList());
+    }
+
+    @Override
+    public ProdutoAlimenticioEntity buscarProdutoById2(Long id){
+        Optional<ProdutoAlimenticioEntity> produto = produtoAlimenticioRepository.findById(id);
+        return produto.get();
+    }
+
+    @Override
+    public ProdutoAlimenticioModel buscarProdutoById(Long id){
+        Optional<ProdutoAlimenticioEntity> produto = produtoAlimenticioRepository.findById(id);
+        return entityToModel(produto.get());
     }
 
     @Override

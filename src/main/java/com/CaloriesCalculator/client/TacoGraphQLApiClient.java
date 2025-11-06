@@ -1,7 +1,6 @@
 package com.CaloriesCalculator.client;
 
-import com.CaloriesCalculator.dto.GraphQLResponse;
-import com.CaloriesCalculator.dto.ProdutoAlimenticioDto;
+import com.CaloriesCalculator.dto.*;
 import com.CaloriesCalculator.model.ProdutoAlimenticioModel;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -10,8 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
-import com.CaloriesCalculator.dto.GetAllFoodWrapper;
-import com.CaloriesCalculator.dto.GetFoodByNameWrapper;
+
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.web.reactive.function.client.WebClientRequestException;
 
@@ -44,6 +42,38 @@ public class TacoGraphQLApiClient {
             System.err.println("❌ Outro erro: " + e.getMessage());
         }
         return false;
+    }
+
+    public ProdutoAlimenticioModel buscarProdutoApiId(Long id){
+        if(!testarConexao()){
+            System.out.println("⚠ API offline — usando produtos do banco de dados.");
+            return null; // fallback
+        }
+
+        String query = String.format("""
+        {
+          getFoodById(id: %d) {
+            name
+            category { name }
+            nutrients {
+              kcal
+              carbohydrates
+              protein
+            }
+          }
+        }
+        """, id);
+
+        Map<String, String> body = Map.of("query", query);
+
+        GraphQLResponse<GetFoodByIdWrapper> response = webClient.post()
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .bodyValue(body)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<GraphQLResponse<GetFoodByIdWrapper>>() {})
+                .block();
+
+        return ConvertDTOtoModel(response.getData().getGetFoodById());
     }
 
     public List<ProdutoAlimenticioModel> buscarProdutoApi(String ProdutoAlimenticio) {
@@ -111,6 +141,8 @@ public class TacoGraphQLApiClient {
     public ProdutoAlimenticioModel ConvertDTOtoModel(ProdutoAlimenticioDto produtoAlimenticioDto){
 
             ProdutoAlimenticioModel produtoAlimenticioModel = new ProdutoAlimenticioModel();
+            produtoAlimenticioModel.setId(produtoAlimenticioDto.getId());
+            produtoAlimenticioModel.setTipoApi(true);
             String tituloFormatado = produtoAlimenticioDto.getName().replace(",", "").trim();
             produtoAlimenticioModel.setTitulo(tituloFormatado);
             produtoAlimenticioModel.setTipo(produtoAlimenticioDto.getCategory().getName());

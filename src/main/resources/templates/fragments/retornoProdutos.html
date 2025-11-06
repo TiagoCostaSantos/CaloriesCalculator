@@ -3,29 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <link th:href="@{/css/styleIndex.css}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Fragmentos do Buscar Produtos</title>
 </head>
 <body>
     <div class="scrollable-div" th:fragment="conteudo">
-        <table class="tabela-produtos">
-            <tr>
-                <th>Produto</th>
-                <th>Categoria</th>
-                <th>Kcal</th>
-                <th>Carboidratos</th>
-                <th>Proteinas</th>
-                <th></th>
-            </tr>
-            <tr th:each="p : ${ProdutosLista}">
-                <td th:text="${p.titulo}"></td>
-                <td th:text="${p.tipo}"></td>
-                <td th:text="${p.kcal}"></td>
-                <td th:text="${p.carboidratos}"></td>
-                <td th:text="${p.proteinas}"></td>
-                <td>Adicionar a dieta</td>
-            </tr>
-        </table>
+        <form method="post" th:action="@{/usuario/salvarProdutosFichaAlimentar}">
+        <!-- hidden input da refeição -->
+<!--            TODO TRATAR O RETORNO DO BACKEND PARA FICAR SELECIONADO QUANDO JA ESTÁ NO COOKIE-->
+        <input type="hidden" name="refeicao" th:value="${refeicao}" />
+            <table class="tabela-produtos">
+                <tr>
+                    <th>Produto</th>
+                    <th>Categoria</th>
+                    <th>Kcal</th>
+                    <th>Carboidratos</th>
+                    <th>Proteinas</th>
+                    <th>Tipo Api?</th>
+                    <th>Adicionar</th>
+                </tr>
+                <tr th:each="p : ${ListaGeral}">
+                    <td th:text="${p.titulo}"></td>
+                    <td th:text="${p.tipo}"></td>
+                    <td th:text="${p.kcal}"></td>
+                    <td th:text="${p.carboidratos}"></td>
+                    <td th:text="${p.proteinas}"></td>
+                    <td th:text="${p.tipoApi}"></td>
+                    <td>
+                        <input type="checkbox" th:value="${p.id + '|' + p.tipoApi}" class="produto-checkbox-modal" name="produtosSelecionados" id="produtosSelecionados">
+                    </td>
+                </tr>
+            </table>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Adicionar Produtos</button>
+        </div>
+        </form>
     </div>
 </body>
 </html>
-
