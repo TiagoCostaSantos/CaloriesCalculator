@@ -1,7 +1,9 @@
 package com.CaloriesCalculator.controller;
 
+import com.CaloriesCalculator.database.entity.UsuarioEntity;
 import com.CaloriesCalculator.model.UsuarioModel;
 import com.CaloriesCalculator.usecase.CookieUseCase;
+import com.CaloriesCalculator.usecase.FichaAlimentarUseCase;
 import com.CaloriesCalculator.usecase.ProdutoAlimenticioUseCase;
 import com.CaloriesCalculator.usecase.UsuarioUseCase;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,19 +17,22 @@ import org.springframework.web.bind.annotation.*;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
 
     private final UsuarioUseCase usuarioUseCase;
+    private final FichaAlimentarUseCase fichaAlimentarUseCase;
     private final ProdutoAlimenticioUseCase produtoAlimenticioUseCase;
     private final CookieUseCase cookieUseCase;
 
-    public UsuarioController(UsuarioUseCase usuarioUseCase, ProdutoAlimenticioUseCase produtoAlimenticioUseCase, CookieUseCase cookieUseCase){
-        this.usuarioUseCase = usuarioUseCase;
+    public UsuarioController(UsuarioUseCase usuarioUseCase,FichaAlimentarUseCase fichaAlimentarUseCase, ProdutoAlimenticioUseCase produtoAlimenticioUseCase, CookieUseCase cookieUseCase){
+        this.fichaAlimentarUseCase = fichaAlimentarUseCase;
         this.produtoAlimenticioUseCase = produtoAlimenticioUseCase;
         this.cookieUseCase = cookieUseCase;
+        this.usuarioUseCase = usuarioUseCase;
     }
 
     @GetMapping("/cadastrar")
@@ -74,17 +79,19 @@ public class UsuarioController {
         }
 
         // se logado
-        if(principal != null){
-            usuarioUseCase.salvarProdutoFichaAlimentar("tiagocosta7603@gmail.com", produtosSelecionados, refeicao);
+        if(principal != null) {
+
+            fichaAlimentarUseCase.salvarProdutoFichaAlimentar(produtosSelecionados, refeicao);
         }
 
-        // Cookies salvando e atualizando se não logado.
-        String CookieFormatado = cookieUseCase.formatarCookie(produtosSelecionados, refeicao);
-        if(cookieUseCase.lerCookie("ProdutosFichaAlimentar", request) == "false"){
-            cookieUseCase.salvarCookie("ProdutosFichaAlimentar", CookieFormatado, 7, response);
-        }
-        else{
-            cookieUseCase.atualizarCookie("ProdutosFichaAlimentar", cookieUseCase.lerCookie("ProdutosFichaAlimentar", request) + CookieFormatado,response);
+        String cookieEncodificado = cookieUseCase.formatarCookie(produtosSelecionados, refeicao);
+        String cookieLido = cookieUseCase.lerCookie("FichaAlimentar", request);
+
+        if("false".equals(cookieLido)){
+            cookieUseCase.salvarCookie("FichaAlimentar", cookieEncodificado, 7, response);
+        }else{
+            String atualizado = cookieLido + "|" + cookieEncodificado;
+            cookieUseCase.atualizarCookie("FichaAlimentar",atualizado,response, request);
         }
 
 

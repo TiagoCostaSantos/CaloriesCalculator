@@ -29,7 +29,7 @@ public class ProdutoAlimenticioEntity {
     @Column(nullable = false, length = 50)
     private double peso;
 
-    @OneToMany(mappedBy = "produtoAlimenticio_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "produtoAlimenticio", cascade = CascadeType.ALL)
     private List<Refeicao_ProdutoAlimenticioEntity> refeicoes_ProdutosAlimenticios;
 
     public Long getId() {

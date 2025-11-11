@@ -14,5 +14,5 @@ public interface ProdutoAlimenticioUseCase {
 
     ProdutoAlimenticioModel buscarProdutoById(Long id);
 
-    ProdutoAlimenticioEntity buscarProdutoById2(Long id);
+    ProdutoAlimenticioEntity buscarProdutoByIdEntity(Long id);
 }

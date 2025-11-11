@@ -23,6 +23,9 @@ public class SecurityConfig {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private CustomLoginSuccessHandler customLoginSuccessHandler;
+
     // TODO VERIFICAR CONFIGURAÇÕES DE ACESSO
     // TODO VERIFICAR QUANTIDADE DE VEZES QUE PODEM CHAMAR O BACK END PARA NÃO DAR SOBRECARGA EM CADA CHAMADA ESPECIFICA (TIPO CADASTRO USUARIO, EDITAR USUARIO)
     @Bean
@@ -39,7 +42,7 @@ public class SecurityConfig {
                 .and()
                 .formLogin()
                     .loginPage("/login")
-                    .defaultSuccessUrl("/home", true)
+                    .successHandler(customLoginSuccessHandler)
                     .permitAll()
                 .and()
                 .logout()

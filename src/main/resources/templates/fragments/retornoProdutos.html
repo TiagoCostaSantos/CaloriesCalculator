@@ -8,10 +8,11 @@
 </head>
 <body>
     <div class="scrollable-div" th:fragment="conteudo">
-        <form method="post" th:action="@{/usuario/salvarProdutosFichaAlimentar}">
+        <form id="formEnviar" method="post" th:action="@{/usuario/salvarProdutosFichaAlimentar}">
         <!-- hidden input da refeição -->
 <!--            TODO TRATAR O RETORNO DO BACKEND PARA FICAR SELECIONADO QUANDO JA ESTÁ NO COOKIE-->
         <input type="hidden" name="refeicao" th:value="${refeicao}" />
+        <input type="hidden" name="produtosSelecionados" id="produtosSelecionados">
             <table class="tabela-produtos">
                 <tr>
                     <th>Produto</th>
@@ -34,12 +35,12 @@
                     <td th:text="${p.peso}"></td>
                     <td th:text="${p.descricao}"></td>
                     <td>
-                        <input type="checkbox" th:value="${p.id}" class="produto-checkbox-modal" name="produtosSelecionados" id="produtosSelecionados">
+                        <input type="checkbox" th:value="${p.id}" class="produto-checkbox-modal">
                     </td>
                 </tr>
             </table>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Adicionar Produtos</button>
+            <button type="submit"  name="addProduto" id="addProduto" class="btn btn-primary">Adicionar Produtos</button>
         </div>
         </form>
     </div>

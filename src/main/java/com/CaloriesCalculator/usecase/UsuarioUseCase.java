@@ -12,5 +12,5 @@ public interface UsuarioUseCase {
     Optional<UsuarioEntity> buscarPorEmail(String email);
 
     void atualizarUsuario(UsuarioModel usuarioModel,String email);
-    void salvarProdutoFichaAlimentar(String email, List<String> produtos, int refeicao);
+
 }

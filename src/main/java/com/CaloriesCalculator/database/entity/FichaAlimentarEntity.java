@@ -14,13 +14,13 @@ public class FichaAlimentarEntity {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    private UsuarioEntity usuario_id;
+    private UsuarioEntity usuario;
 
     @Column(nullable = false, length = 30)
     private LocalDate data;
 
 
-    @OneToMany(mappedBy = "fichaAlimentar_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "fichaAlimentar", cascade = CascadeType.ALL)
     private List<RefeicaoEntity> refeicoes;
 
     public Long getId() {
@@ -31,12 +31,12 @@ public class FichaAlimentarEntity {
         this.id = id;
     }
 
-    public UsuarioEntity getUsuarioId() {
-        return usuario_id;
+    public UsuarioEntity getUsuario() {
+        return usuario;
     }
 
-    public void setUsuarioId(UsuarioEntity usuarioId) {
-        this.usuario_id = usuarioId;
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
     }
 
     public LocalDate getData() {

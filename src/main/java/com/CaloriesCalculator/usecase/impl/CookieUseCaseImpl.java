@@ -10,21 +10,20 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CookieUseCaseImpl implements CookieUseCase {
 
     @Override
-    public String formatarCookie(List<String> IdAndTipoApi, int refeicao) throws UnsupportedEncodingException {
+    public String formatarCookie(List<String> idProdutos, int refeicao) throws UnsupportedEncodingException {
+
         // Constrói a string compacta para o cookie
-        List<String> listaParaCookie = IdAndTipoApi.stream()
-                .map(p -> {
-                    String[] partes = p.split("\\|");
-                    long id = Long.parseLong(partes[0]);
-                    boolean tipoApi = Boolean.parseBoolean(partes[1]);
-                    return id + "," + (tipoApi ? 1 : 0) + "," + refeicao;
-                })
+        List<String> listaParaCookie = idProdutos.stream()
+                .map(p -> refeicao + "," + p)
                 .toList();
 
         String CookieFormatado = String.join("|", listaParaCookie);
@@ -34,7 +33,7 @@ public class CookieUseCaseImpl implements CookieUseCase {
 
     @Override
     public String salvarCookie(String nomeCookie, String valor, int diasExpiracao, HttpServletResponse response) {
-        Cookie cookie = new Cookie("FichaAlimentar", valor);
+        Cookie cookie = new Cookie(nomeCookie, valor);
         cookie.setPath("/"); // acessível aonde
         cookie.setMaxAge(60 * 60 * 24 * diasExpiracao); // dura 7 dias (em segundos)
         cookie.setHttpOnly(true); // segurança: não acessível via JS
@@ -44,14 +43,53 @@ public class CookieUseCaseImpl implements CookieUseCase {
     }
 
     @Override
-    public String atualizarCookie(String nomeCookie, String valor, HttpServletResponse response) {
-        Cookie cookie = new Cookie(nomeCookie, valor);
-        cookie.setPath("/");
-        cookie.setMaxAge(60 * 60 * 24 * 7); // dura 7 dias (em segundos)
-        cookie.setHttpOnly(true); // segurança: não acessível via JS
-        response.addCookie(cookie);
+    public String atualizarCookie(String nomeCookie, String valor, HttpServletResponse response, HttpServletRequest request) {
 
-        return "Cookie Atualizado";
+        try {
+            // 1️⃣ Lê o cookie atual (se existir)
+            Cookie[] cookies = request.getCookies();
+            String valorExistente = "";
+            if (cookies != null) {
+                for (Cookie c : cookies) {
+                    if (c.getName().equals(nomeCookie)) {
+                        valorExistente = URLDecoder.decode(c.getValue(), StandardCharsets.UTF_8.toString());
+                        break;
+                    }
+                }
+            }
+
+            // 2️⃣ Decodifica o novo valor (ex: "1,175|3,180")
+            String novoValorDecodificado = URLDecoder.decode(valor, StandardCharsets.UTF_8.toString());
+
+            // 3️⃣ Quebra os valores em pares e remove duplicatas usando Set
+            Set<String> conjuntoValores = new LinkedHashSet<>();
+
+            if (!valorExistente.isBlank()) {
+                conjuntoValores.addAll(Arrays.asList(valorExistente.split("\\|")));
+            }
+
+            if (!valor.isBlank()) {
+                conjuntoValores.addAll(Arrays.asList(novoValorDecodificado.split("\\|")));
+            }
+
+            // 4️⃣ Junta novamente em formato "refeicao,produto|refeicao,produto"
+            String valorFinal = String.join("|", conjuntoValores);
+
+            // 5️⃣ Codifica e salva no cookie
+            String valorFinalEncodado = URLEncoder.encode(valorFinal, StandardCharsets.UTF_8.toString());
+
+            Cookie cookie = new Cookie(nomeCookie, valorFinalEncodado);
+            cookie.setPath("/");
+            cookie.setMaxAge(60 * 60 * 24 * 7); // 7 dias
+            cookie.setHttpOnly(true);
+            response.addCookie(cookie);
+
+            return "Cookie atualizado sem duplicatas";
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return "Erro ao atualizar cookie: " + e.getMessage();
+        }
     }
 
     @Override
@@ -60,8 +98,8 @@ public class CookieUseCaseImpl implements CookieUseCase {
         if (cookies != null) {
             for(Cookie c : cookies){
                 if(nomeCookie.equals(c.getName())){
-                    String CookieDecodificado = URLDecoder.decode(c.getValue(), StandardCharsets.UTF_8.toString());
-                    return CookieDecodificado;
+//                    String CookieDecodificado = URLDecoder.decode(c.getValue(), StandardCharsets.UTF_8.toString());
+                    return c.getValue();
                 }
             }
         }

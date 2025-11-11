@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface CookieUseCase {
 
-    String formatarCookie(List<String> IdAndTipoApi, int refeicao) throws UnsupportedEncodingException;
+    String formatarCookie(List<String> idProdutos, int refeicao) throws UnsupportedEncodingException;
 
     String salvarCookie(String nomeCookie, String valor, int diasExpiracao, HttpServletResponse response);
 
-    String atualizarCookie(String nomeCookie, String valor, HttpServletResponse response);
+    String atualizarCookie(String nomeCookie, String valor, HttpServletResponse response, HttpServletRequest request);
 
     String lerCookie(String nomeCokie, HttpServletRequest request) throws UnsupportedEncodingException;
 
