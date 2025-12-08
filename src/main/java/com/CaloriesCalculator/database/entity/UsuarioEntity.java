@@ -33,11 +33,11 @@ public class UsuarioEntity {
     @Column(nullable = false, length = 30)
     private LocalDate dataCadastro;
 
-    @OneToOne(mappedBy = "usuario_id", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private DadosUsuarioEntity dados;
 
     //Cascade define que todas as ações feitas no usuario, cascateiam para as fichas alimentares (apagar, criar)
-    @OneToMany(mappedBy = "usuario_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<FichaAlimentarEntity> fichasAlimentares;
 
     public Long getId() {

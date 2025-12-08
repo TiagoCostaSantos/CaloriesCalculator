@@ -8,34 +8,44 @@
 </head>
 <body>
     <div class="scrollable-div" th:fragment="conteudo">
-        <form method="post" th:action="@{/usuario/salvarProdutosFichaAlimentar}">
-        <!-- hidden input da refeição -->
-<!--            TODO TRATAR O RETORNO DO BACKEND PARA FICAR SELECIONADO QUANDO JA ESTÁ NO COOKIE-->
+        <form id="formEnviar" method="post" th:action="@{/usuario/salvarProdutosFichaAlimentar}">
+        <!-- TODO TRATAR O RETORNO DO BACKEND PARA FICAR SELECIONADO QUANDO JA ESTÁ NO COOKIE-->
+
         <input type="hidden" name="refeicao" th:value="${refeicao}" />
-            <table class="tabela-produtos">
+        <input type="hidden" name="produtosSelecionados" id="produtosSelecionados">
+            <table class="tabela-produtos table table-hover align-middle">
+                <thead class="cabecalho-fixo">
                 <tr>
                     <th>Produto</th>
                     <th>Categoria</th>
                     <th>Kcal</th>
                     <th>Carboidratos</th>
                     <th>Proteinas</th>
-                    <th>Tipo Api?</th>
-                    <th>Adicionar</th>
+                    <th>Gordura</th>
+                    <th>Peso</th>
+                    <th>Descrição</th>
+                    <th class="text-center">Adicionar</th>
                 </tr>
+                </thead>
+
+                <tbody>
                 <tr th:each="p : ${ListaGeral}">
                     <td th:text="${p.titulo}"></td>
                     <td th:text="${p.tipo}"></td>
                     <td th:text="${p.kcal}"></td>
                     <td th:text="${p.carboidratos}"></td>
                     <td th:text="${p.proteinas}"></td>
-                    <td th:text="${p.tipoApi}"></td>
-                    <td>
-                        <input type="checkbox" th:value="${p.id + '|' + p.tipoApi}" class="produto-checkbox-modal" name="produtosSelecionados" id="produtosSelecionados">
+                    <td th:text="${p.gorduraGerais}"></td>
+                    <td th:text="${p.peso}"></td>
+                    <td th:text="${p.descricao}"></td>
+                    <td class="text-center">
+                        <input type="checkbox" th:value="${p.id}" class="form-check-input produto-checkbox-modal">
                     </td>
                 </tr>
+                </tbody>
             </table>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Adicionar Produtos</button>
+            <button type="submit"  name="addProduto" id="addProduto" class="btn btn-primary">Adicionar Produtos</button>
         </div>
         </form>
     </div>

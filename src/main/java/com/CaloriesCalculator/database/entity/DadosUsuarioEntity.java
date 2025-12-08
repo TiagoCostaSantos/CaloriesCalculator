@@ -28,13 +28,16 @@ public class DadosUsuarioEntity {
     @Column(nullable = false, length = 30)
     private NivelAtividadeFisica nivelAtividadeFisica;
 
+    @Column(nullable = false, length = 30)
+    private Double metaPeso;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
-    private MotivoEnum motivoEnum;
+    private Intensidade intensidade;
 
     @OneToOne
     @JoinColumn(name = "usuario_id")
-    private UsuarioEntity usuario_id;
+    private UsuarioEntity usuario;
 
     public Long getId() {
         return id;
@@ -84,19 +87,27 @@ public class DadosUsuarioEntity {
         this.nivelAtividadeFisica = nivelAtividadeFisica;
     }
 
-    public MotivoEnum getMotivoEnum() {
-        return motivoEnum;
+    public UsuarioEntity getUsuario() {
+        return usuario;
     }
 
-    public void setMotivoEnum(MotivoEnum motivoEnum) {
-        this.motivoEnum = motivoEnum;
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
     }
 
-    public UsuarioEntity getUsuario_id() {
-        return usuario_id;
+    public Double getMetaPeso() {
+        return metaPeso;
     }
 
-    public void setUsuario_id(UsuarioEntity usuario_id) {
-        this.usuario_id = usuario_id;
+    public void setMetaPeso(Double metaPeso) {
+        this.metaPeso = metaPeso;
+    }
+
+    public Intensidade getIntensidade() {
+        return intensidade;
+    }
+
+    public void setIntensidade(Intensidade intensidade) {
+        this.intensidade = intensidade;
     }
 }

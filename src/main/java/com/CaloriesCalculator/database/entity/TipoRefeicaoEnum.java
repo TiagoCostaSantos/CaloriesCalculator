@@ -1,4 +1,4 @@
-package com.CaloriesCalculator.model;
+package com.CaloriesCalculator.database.entity;
 
 public enum TipoRefeicaoEnum {
     CAFE,

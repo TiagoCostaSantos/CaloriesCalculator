@@ -1,6 +1,5 @@
 package com.CaloriesCalculator.database.entity;
 
-import com.CaloriesCalculator.model.TipoRefeicaoEnum;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -19,10 +18,10 @@ public class RefeicaoEntity {
 
     @ManyToOne
     @JoinColumn(name = "fichaAlimentar_id")
-    private FichaAlimentarEntity fichaAlimentar_id;
+    private FichaAlimentarEntity fichaAlimentar;
 
     // o OneToMany é apenas para conseguirmos navegar com o Java, não cria coluna nesta tabela e apenas mapeia a relacao delas
-    @OneToMany(mappedBy = "refeicao_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "refeicao", cascade = CascadeType.ALL)
     private List<Refeicao_ProdutoAlimenticioEntity> refeicoes_ProdutosAlimenticios;
 
 
@@ -42,12 +41,12 @@ public class RefeicaoEntity {
         this.tipo = tipo;
     }
 
-    public FichaAlimentarEntity getFichaAlimentar_id() {
-        return fichaAlimentar_id;
+    public FichaAlimentarEntity getFichaAlimentar() {
+        return fichaAlimentar;
     }
 
-    public void setFichaAlimentar_id(FichaAlimentarEntity fichaAlimentar_id) {
-        this.fichaAlimentar_id = fichaAlimentar_id;
+    public void setFichaAlimentar(FichaAlimentarEntity fichaAlimentar) {
+        this.fichaAlimentar = fichaAlimentar;
     }
 
     public List<Refeicao_ProdutoAlimenticioEntity> getRefeicoes_ProdutosAlimenticios() {

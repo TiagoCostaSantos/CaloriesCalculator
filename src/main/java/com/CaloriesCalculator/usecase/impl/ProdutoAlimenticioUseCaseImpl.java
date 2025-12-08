@@ -43,7 +43,7 @@ public class ProdutoAlimenticioUseCaseImpl implements ProdutoAlimenticioUseCase 
     }
 
     @Override
-    public ProdutoAlimenticioEntity buscarProdutoById2(Long id){
+    public ProdutoAlimenticioEntity buscarProdutoByIdEntity(Long id){
         Optional<ProdutoAlimenticioEntity> produto = produtoAlimenticioRepository.findById(id);
         return produto.get();
     }

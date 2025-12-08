@@ -13,12 +13,12 @@ public class Refeicao_ProdutoAlimenticioEntity {
     @ManyToOne
     @MapsId("refeicaoId")
     @JoinColumn(name = "REFEICAO_ID")
-    private RefeicaoEntity refeicao_id;
+    private RefeicaoEntity refeicao;
 
     @ManyToOne
     @MapsId("produtoAlimenticioId")
     @JoinColumn(name = "PRODUTO_ALIMENTICIO_ID")
-    private ProdutoAlimenticioEntity produtoAlimenticio_id;
+    private ProdutoAlimenticioEntity produtoAlimenticio;
 
     @Column
     private double quantidade;
@@ -32,19 +32,19 @@ public class Refeicao_ProdutoAlimenticioEntity {
     }
 
     public RefeicaoEntity getRefeicao() {
-        return refeicao_id;
+        return refeicao;
     }
 
     public void setRefeicao(RefeicaoEntity refeicao) {
-        this.refeicao_id = refeicao;
+        this.refeicao = refeicao;
     }
 
     public ProdutoAlimenticioEntity getProdutoAlimenticio() {
-        return produtoAlimenticio_id;
+        return produtoAlimenticio;
     }
 
     public void setProdutoAlimenticio(ProdutoAlimenticioEntity produtoAlimenticio) {
-        this.produtoAlimenticio_id = produtoAlimenticio;
+        this.produtoAlimenticio = produtoAlimenticio;
     }
 
     public double getQuantidade() {

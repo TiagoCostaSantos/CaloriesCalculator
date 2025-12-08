@@ -1,5 +1,7 @@
 package com.CaloriesCalculator.model;
 
+import com.CaloriesCalculator.database.entity.TipoRefeicaoEnum;
+
 import java.util.List;
 
 public class RefeicaoModel {
