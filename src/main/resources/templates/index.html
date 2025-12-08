@@ -8,216 +8,732 @@
     <link th:href="@{/css/styleIndex.css}" rel="stylesheet">
 </head>
 <body>
-    <div sec:authorize="isAnonymous()">
-        <a th:href="@{/login}">Entrar</a>
-    </div>
-    <div sec:authorize="isAuthenticated()">
-        <form th:action="@{/logout}" method="post" style="display:inline;">
-            <button type="submit">Logout</button>
-        </form>
-        <span>Olá, <b th:text="${#authentication.name}">Usuário</b></span>
-    </div>
-    <a href="meuPerfil" style="float:right;">Meu perfil</a>
-    <a href="/produto-alimenticio/cadastrar" style="float:right;">Cadastrar Produto &nbsp;</a>
-    <a href="/produto-alimenticio/buscar-produto" style="float:right;" >Lista de Produtos &nbsp;</a>
-    <br><br>
-    <hr>
-    <center>
-        ! FAÇA LOGIN PARA SALVAR SEU HISTORICO E PODER ACRESCENTAR META PARA SEU OBJETIVO !
-        <br><Br>
-    <div style="width: 400px; height: 200px;margin: auto;">
-        <canvas class="line-chart"></canvas>
-    </div><br><br>
-    <table>
-        <tr>
-            <th>Kcal (dia)</th>
-            <th>Carboidratos (dia)</th>
-            <th>Proteinas (dia)</th>
-            <th>Outros (dia)</th>
-        </tr>
-        <tr>
-            <td>Meta: </td>
-            <td>Meta: </td>
-            <td>Meta: </td>
-            <td>Meta: </td>
-        </tr>
-        <tr>
-            <td>Consumidas: </td>
-            <td>Consumidas: </td>
-            <td>Consumidas: </td>
-            <td>Consumidas: </td>
-        </tr>
-        <tr>
-            <td>Falta: </td>
-            <td>Falta: </td>
-            <td>Falta:</td>
-            <td>Falta:</td>
-        </tr>
-    </table>
-        <div class="accordion">
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span>Café da manhã (Refeição 01)</span>
-                    <span class="seta">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <p>
-                        <!-- Butão para chamar o modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="abrirModalProdutos('1')">
-                            Adicionar Elemento
-                        </button>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="accordion">
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span>Almoço (Refeicao 02)</span>
-                    <span class="seta">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <p>
-                        <!-- Butão para chamar o modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="abrirModalProdutos('2')">
-                            Adicionar Elemento
-                        </button>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="accordion">
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span>Lanche da tarde (Refeicao 03)</span>
-                    <span class="seta">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <p>
-                        <!-- Butão para chamar o modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="abrirModalProdutos('3')">
-                            Adicionar Elemento
-                        </button>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="accordion">
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span>Janta (Refeicao 04)</span>
-                    <span class="seta">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <p>
-                        <!-- Butão para chamar o modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="abrirModalProdutos('4')">
-                            Adicionar Elemento
-                        </button>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="accordion">
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span>Suplementação (Refeicao 05)</span>
-                    <span class="seta">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <p>
-                        <!-- Butão para chamar o modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="abrirModalProdutos('5')">
-                            Adicionar Elemento
-                        </button>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="accordion">
-            <div class="accordion-item">
-                <div class="accordion-header">
-                    <span>Outro (Refeicao 06)</span>
-                    <span class="seta">▼</span>
-                </div>
-                <div class="accordion-content">
-                    <p>
-                        <!-- Butão para chamar o modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="abrirModalProdutos('6')">
-                            Adicionar Elemento
-                        </button>
-                    </p>
-                </div>
-            </div>
-        </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid position-relative">
 
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Buscar Produto</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div><Br>
-                    <center>
+            <!-- TOGGLER (só aparece no mobile) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                        <form id="formBuscarProduto">
-                            Digite o produto alimenticio para busca:
-                            <input type="text" id="inputProduto" name="produtoAlimenticio">
-                            <button type="button" onclick="abrirModalProdutos()">Pesquisar</button>
+            <!-- MENU COLLAPSABLE (mobile + desktop) -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <!-- ITENS DA ESQUERDA -->
+                <ul class="navbar-nav">
+                    <li class="nav-item me-1 active"><a class="nav-link" href="/home">🏠︎ Home</a></li>
+                    <li class="nav-item me-1"><a style="cursor: pointer;" class="nav-link" onclick="document.getElementById('rodape').scrollIntoView({ behavior: 'smooth' })"> Sobre</a></li>
+                    <li class="nav-item me-1"><a href="https://api.whatsapp.com/send?phone=5516997705165&text=Olá,%20gostaria%20de%20falar%20com%20você%20sobre%20o%20Calories%20Calculator" target="_blank" class="nav-link"> Contate-nos</a></li>
+                    <li class="nav-item me-1" sec:authorize="isAuthenticated()"><a class="nav-link" href="/produto-alimenticio/cadastrar">Cadastro de Produto</a></li>
+                </ul>
+                <!-- ITENS DA DIREITA -->
+                <ul class="navbar-nav ms-auto">
+                    <li sec:authorize="isAnonymous()" class="nav-item me-1" ><a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal"><img src="/img/USER_CINZA.png" alt="icone" width="22"> Entrar</a></li>
+                    <li sec:authorize="isAnonymous()" class="nav-item me-1"><a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#cadastroModal"><img src="/img/LOGOUT_CINZA.png" alt="icone" width="22"> Cadastrar-se</a></li>
+                    <li th:if="${dadosUsuario != null}" sec:authorize="isAuthenticated()" class="nav-item d-flex align-items-center">
+                        <button sec:authorize="isAuthenticated()" type="button" class="btn btn-outline-light btn-sm me-2" style="padding: 0.410rem;" data-bs-toggle="modal" data-bs-target="#staticBackdropDados" onclick="abrirModalDados()">
+                            Atualizar objetivo
+                        </button>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item d-flex align-items-center">
+                        <form th:action="@{/logout}" method="post" class="d-inline me-2 p-0">
+                            <button type="submit" class="btn btn-outline-light btn-sm">
+                                Logout <img src="/img/LOGOUT_CINZA.png" alt="icone" width="22">
+                            </button>
                         </form>
-                    </center><br>
-                    <div class="modal-body" id="conteudoModalProdutos">
-
-<!--                            &lt;!&ndash; TODO FILTRO POR ORDEM ALFABETICA, E COLOCAR SCROLL NA LISTA PARA NÃO PRECISAR ABAIXAR A PAGINA TODA &ndash;&gt;-->
-<!--                            <br>Não encontrou o produto que deseja? <a href="produto-alimenticio/cadastrar"> + Cadastrar</a>-->
-<!--                        </center>-->
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="nav-item me-1">
+                        <a class="btn btn-outline-light btn-sm" href="meuPerfil">Meu perfil <img src="/img/USER_CINZA.png" alt="icone" width="22"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<!--    <li sec:authorize="isAuthenticated()" class="nav-item"><span class="nav-link" style="color: white;">Olá, <b th:text="${#authentication.name}">Usuário</b></span>-->
+    </li>
+    <br>
+    <center>
+    <div class="grafico-wrapper">
+        <button class="btn-control" data-bs-target="#carouselGraficos" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" style="filter: invert(1);"></span>
+        </button>
+        <div class="box-grafico">
+            <div sec:authorize="isAuthenticated()" id="carouselGraficos" style="1px solid black;" class="carousel slide" data-bs-ride="false">
+                <div class="carousel-inner">
+                    <div class="carousel-item text-center" th:each="i : ${qtdGraficos != null ? #numbers.sequence(0, qtdGraficos - 1) : {}}" th:classappend="${i == 0} ? ' active'">
+                        <canvas th:id="'chartCanvas-' + ${i}" style="height: 400px; width: 100%;"></canvas>
                     </div>
                 </div>
             </div>
+            <div sec:authorize="isAnonymous()">
+                <img src="/img/GRAFICO_BLOQUEADO_SEMTEXTO.png" alt="img" width="90%">
+                <div class="alert alert-info" role="alert" width="100%">
+                    Entre com uma conta para calcularmos sua meta!
+                </div>
+            </div>
+            <div th:if="${dadosUsuario == null}" sec:authorize="isAuthenticated()">
+                <img src="/img/GRAFICO_BLOQUEADO_SEMTEXTO.png" alt="img" width="90%">
+                <button type="button" style="margin: 0px;" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdropDados" onclick="abrirModalDados()">Adicionar nova meta</button>
+            </div>
         </div>
-    <hr>
-    RODAPÉ
+        <button class="btn-control" data-bs-target="#carouselGraficos" data-bs-slide="next">
+            <span class="carousel-control-next-icon" style="filter: invert(1);"></span>
+        </button>
+    </div>
+    <br>
+    <div style="max-width: 70%; margin: auto">
+        <table class="table">
+            <tr>
+                <th scope="col">PESO INICIAL</th>
+                <th scope="col">TMB</th>
+                <th scope="col">TDEE</th>
+                <th scope="col">DIAS DE PROJETO</th>
+                <th scope="col">DIA ATUAL</th>
+                <th scope="col">DIAS FALTANTES</th>
+                <th scope="col">PESO FINAL</th>
+            </tr>
+            <tr>
+                <td><span th:text="${dadosUsuarioCadastrado != null ? dadosUsuarioCadastrado.peso : '0,00'}"></span></td>
+                <td><span th:text="${dadosUsuario != null ? dadosUsuario.tbm : '0,00'}"></span></td>
+                <td><span th:text="${dadosUsuario != null ? dadosUsuario.tdee : '0,00'}"></span></td>
+                <td><span th:text="${dadosUsuario != null ? dadosUsuario.qtdDias : 0}"></span></td>
+                <td><span th:text="${diaAtualProjeto != null ? diaAtualProjeto : 0}"></span></td>
+                <td><span th:text="${diaAtualProjeto != null and dadosUsuario != null  ? dadosUsuario.qtdDias - diaAtualProjeto : 0}"></span></td>
+                <td><span th:text="${dadosUsuarioCadastrado != null ? dadosUsuarioCadastrado.metaPeso : '0,00'}"></span></td>
+            </tr>
+        </table>
+    </div>
+    <div style="max-width: 70%; margin: auto">
+        <table class="table">
+            <tr>
+                <th scope="col">Kcal (dia)</th>
+                <th scope="col">Carboidratos (dia)</th>
+                <th scope="col">Proteinas (dia)</th>
+                <th scope="col">Outros (dia)</th>
+            </tr>
+            <tr>
+                <td>Meta: <p th:text="${dadosUsuario != null ? #numbers.formatDecimal(dadosUsuario.metaKcalDia, 1, 2) : '0,00'}" ></p></td>
+                <td>Meta: <p th:text="${dadosUsuario != null ? #numbers.formatDecimal(dadosUsuario.macroNutrientesModel.carboidratos, 1, 2) : '0,00'}"></p></td>
+                <td>Meta: <p th:text="${dadosUsuario != null ? #numbers.formatDecimal(dadosUsuario.macroNutrientesModel.proteinas, 1, 2) : '0,00' }"></p></td>
+                <td>Meta: <p th:text="${dadosUsuario != null ? #numbers.formatDecimal(dadosUsuario.macroNutrientesModel.gordurasGerais, 1, 2) : '0,00'}"></p></td>
+            </tr>
+            <tr>
+                <td>Consumidas: <p th:text="${kcalConsumida != null ? #numbers.formatDecimal(kcalConsumida, 1, 2) : '0,00'}"></p></td>
+                <td>Consumidas: <p th:text="${carboConsumido != null ? #numbers.formatDecimal(carboConsumido, 1, 2) : '0,00'}"></p></td>
+                <td>Consumidas: <p th:text="${proteinaConsumida != null ? #numbers.formatDecimal(proteinaConsumida, 1, 2) : '0,00'}"></p></td>
+                <td>Consumidas: <p th:text="${outroConsumida != null ? #numbers.formatDecimal(outroConsumida, 1, 2) : '0,00'}"></p></td>
+            </tr>
+            <tr>
+                <td>Falta: <p th:text="${kcalFaltante != null ? #numbers.formatDecimal(kcalFaltante, 1, 2) : '0,00'}"></p></td>
+                <td>Falta: <p th:text="${carboFaltante != null ? #numbers.formatDecimal(carboFaltante, 1, 2) : '0,00'}"></p></td>
+                <td>Falta: <p th:text="${proteinaFaltante != null ? #numbers.formatDecimal(proteinaFaltante, 1, 2) : '0,00'}"></p></td>
+                <td>Falta: <p th:text="${outroFaltante != null ? #numbers.formatDecimal(outroFaltante, 1, 2) : '0,00'}"></p></td>
+            </tr>
+        </table>
+    </div>
+    <div class="accordion">
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <span><img src="/img/COFFE.png" alt="icone" width="22"> Café da manhã</span>
+                <span class="seta">▼</span>
+            </div>
+            <div class="accordion-content">
+                <table class="table table-striped text-center tabela-refeicao">
+                    <tr>
+                        <button type="button" class="btn btn-success w-100 py-3 rounded-3 shadow-sm fw-bold d-flex justify-content-center align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="abrirModalProdutos('1')">
+                            <span>Adicionar Produto <img src="/img/adicionar.png" alt="icone" width="15"></span>
+                            <i class="bi bi-plus-circle"></i>
+                        </button>
+                    </tr>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Kcal</th>
+                        <th>Proteinas</th>
+                        <th>Carbo</th>
+                        <th>Gordura etc</th>
+                    </tr>
+                    <tr style="width:100%" th:each="c : ${cafe}">
+                        <td th:text="${c.titulo}"></td>
+                        <td th:text="${c.kcal}"></td>
+                        <td th:text="${c.proteinas}"></td>
+                        <td th:text="${c.carboidratos}"></td>
+                        <td th:text="${c.gorduraGerais}"></td>
+                        <td class="col-acoes">
+                            <form th:action="@{/usuario/removerProdutosFichaAlimentar}" method="post">
+                            <input type="hidden" name="refeicao" th:value="1">
+                            <input type="hidden" name="id" th:value="${c.id}">
+                            <button type="submit" class="btn btn-danger"><img src="/img/lixeira.png" alt="icone" width="22"></button>
+                            </form>
+                        </td>
+                    </tr>
+                </table><br><Br>
+            </div>
+        </div>
+    </div>
+    <div class="accordion">
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <span><img src="/img/REFEICAO.png" alt="icone" width="22"> Almoço</span>
+                <span class="seta">▼</span>
+            </div>
+            <div class="accordion-content">
+                <table class="table table-striped text-center tabela-refeicao">
+                    <tr>
+                        <button type="button" class="btn btn-success w-100 py-3 rounded-3 shadow-sm fw-bold d-flex justify-content-center align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="abrirModalProdutos('2')">
+                            <span>Adicionar Produto <img src="/img/adicionar.png" alt="icone" width="15"></span>
+                            <i class="bi bi-plus-circle"></i>
+                        </button>
+                    </tr>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Kcal</th>
+                        <th>Proteinas</th>
+                        <th>Carbo</th>
+                        <th>Gordura etc</th>
+                    </tr>
+                    <tr th:each="a : ${almoco}">
+                        <td th:text="${a.titulo}"></td>
+                        <td th:text="${a.kcal}"></td>
+                        <td th:text="${a.proteinas}"></td>
+                        <td th:text="${a.carboidratos}"></td>
+                        <td th:text="${a.gorduraGerais}"></td>
+                        <td class="col-acoes">
+                            <form th:action="@{/usuario/removerProdutosFichaAlimentar}" method="post">
+                                <input type="hidden" name="refeicao" th:value="2">
+                                <input type="hidden" name="id" th:value="${a.id}">
+                                <button type="submit" class="btn btn-danger"><img src="/img/lixeira.png" alt="icone" width="22"></button>
+                            </form>
+                        </td>
+                    </tr>
+                </table><br><Br>
+            </div>
+        </div>
+    </div>
+    <div class="accordion">
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <span><img src="/img/LANCHE.png" alt="icone" width="22"> Lanche da tarde</span>
+                <span class="seta">▼</span>
+            </div>
+            <div class="accordion-content">
+                <table class="table table-striped text-center tabela-refeicao">
+                    <tr>
+                        <button type="button" class="btn btn-success w-100 py-3 rounded-3 shadow-sm fw-bold d-flex justify-content-center align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="abrirModalProdutos('3')">
+                            <span>Adicionar Produto <img src="/img/adicionar.png" alt="icone" width="15"></span>
+                            <i class="bi bi-plus-circle"></i>
+                        </button>
+                    </tr>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Kcal</th>
+                        <th>Proteinas</th>
+                        <th>Carbo</th>
+                        <th>Gordura etc</th>
+                    </tr>
+                    <tr th:each="l : ${lanche}">
+                        <td th:text="${l.titulo}"></td>
+                        <td th:text="${l.kcal}"></td>
+                        <td th:text="${l.proteinas}"></td>
+                        <td th:text="${l.carboidratos}"></td>
+                        <td th:text="${l.gorduraGerais}"></td>
+                        <td class="col-acoes">
+                            <form th:action="@{/usuario/removerProdutosFichaAlimentar}" method="post">
+                                <input type="hidden" name="refeicao" th:value="3">
+                                <input type="hidden" name="id" th:value="${l.id}">
+                                <button type="submit" class="btn btn-danger"><img src="/img/lixeira.png" alt="icone" width="22"></button>
+                            </form>
+                        </td>
+                    </tr>
+                </table><br><Br>
+            </div>
+        </div>
+    </div>
+    <div class="accordion">
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <span><img src="/img/REFEICAO.png" alt="icone" width="22"> Janta</span>
+                <span class="seta">▼</span>
+            </div>
+            <div class="accordion-content">
+                <table class="table table-striped text-center tabela-refeicao">
+                    <tr>
+                        <button type="button" class="btn btn-success w-100 py-3 rounded-3 shadow-sm fw-bold d-flex justify-content-center align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="abrirModalProdutos('4')">
+                            <span>Adicionar Produto <img src="/img/adicionar.png" alt="icone" width="15"></span>
+                            <i class="bi bi-plus-circle"></i>
+                        </button>
+                    </tr>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Kcal</th>
+                        <th>Proteinas</th>
+                        <th>Carbo</th>
+                        <th>Gordura etc</th>
+                    </tr>
+                    <tr th:each="j : ${janta}">
+                        <td th:text="${j.titulo}"></td>
+                        <td th:text="${j.kcal}"></td>
+                        <td th:text="${j.proteinas}"></td>
+                        <td th:text="${j.carboidratos}"></td>
+                        <td th:text="${j.gorduraGerais}"></td>
+                        <td class="col-acoes"><form th:action="@{/usuario/removerProdutosFichaAlimentar}" method="post">
+                            <input type="hidden" name="refeicao" th:value="4">
+                            <input type="hidden" name="id" th:value="${j.id}">
+                            <button type="submit" class="btn btn-danger"><img src="/img/lixeira.png" alt="icone" width="22"></button>
+                        </form></td>
+                    </tr>
+                </table><br><Br>
+            </div>
+        </div>
+    </div>
+    <div class="accordion">
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <span><img src="/img/SUPLEMENTO.png" alt="icone" width="22"> Suplementação</span>
+                <span class="seta">▼</span>
+            </div>
+            <div class="accordion-content">
+                <table class="table table-striped text-center tabela-refeicao">
+                    <tr>
+                        <button type="button" class="btn btn-success w-100 py-3 rounded-3 shadow-sm fw-bold d-flex justify-content-center align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="abrirModalProdutos('5')">
+                            <span>Adicionar Produto <img src="/img/adicionar.png" alt="icone" width="15"></span>
+                            <i class="bi bi-plus-circle"></i>
+                        </button>
+                    </tr>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Kcal</th>
+                        <th>Proteinas</th>
+                        <th>Carbo</th>
+                        <th>Gordura etc</th>
+                    </tr>
+                    <tr th:each="s : ${suplementacao}">
+                        <td th:text="${s.titulo}"></td>
+                        <td th:text="${s.kcal}"></td>
+                        <td th:text="${s.proteinas}"></td>
+                        <td th:text="${s.carboidratos}"></td>
+                        <td th:text="${s.gorduraGerais}"></td>
+                        <td class="col-acoes"><form th:action="@{/usuario/removerProdutosFichaAlimentar}" method="post">
+                            <input type="hidden" name="refeicao" th:value="5">
+                            <input type="hidden" name="id" th:value="${s.id}">
+                            <button type="submit" class="btn btn-danger"><img src="/img/lixeira.png" alt="icone" width="22"></button>
+                        </form></td>
+                    </tr>
+                </table><br><Br>
+            </div>
+        </div>
+    </div>
+    <div class="accordion">
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <span><img src="/img/MACA.png" alt="icone" width="22"> Outro</span>
+                <span class="seta">▼</span>
+            </div>
+            <div class="accordion-content">
+                <table class="table table-striped text-center tabela-refeicao">
+                    <tr>
+                        <button type="button" class="btn btn-success w-100 py-3 rounded-3 shadow-sm fw-bold d-flex justify-content-center align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="abrirModalProdutos('6')">
+                            <span>Adicionar Produto <img src="/img/adicionar.png" alt="icone" width="15"></span>
+                            <i class="bi bi-plus-circle"></i>
+                        </button>
+                    </tr>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Kcal</th>
+                        <th>Proteinas</th>
+                        <th>Carbo</th>
+                        <th>Gordura etc</th>
+                    </tr>
+                    <tr th:each="o : ${outro}">
+                        <td th:text="${o.titulo}"></td>
+                        <td th:text="${o.kcal}"></td>
+                        <td th:text="${o.proteinas}"></td>
+                        <td th:text="${o.carboidratos}"></td>
+                        <td th:text="${o.gorduraGerais}"></td>
+                        <td class="col-acoes"><form th:action="@{/usuario/removerProdutosFichaAlimentar}" method="post">
+                            <input type="hidden" name="refeicao" th:value="6">
+                            <input type="hidden" name="id" th:value="${o.id}">
+                            <button type="submit" class="btn btn-danger"><img src="/img/lixeira.png" alt="icone" width="22"></button>
+                        </form></td>
+                    </tr>
+                </table><br><Br>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Buscar Produto</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <!-- BARRA DE PESQUISA -->
+                    <form id="formBuscarProduto" class="d-flex justify-content-center gap-2 mb-3">
+                        <input type="text" id="inputProduto" name="produtoAlimenticio" class="form-control" placeholder="Digite o produto...">
+                        <button type="button" class="btn btn-primary" onclick="abrirModalProdutos()">Pesquisar</button>
+                    </form>
+
+                    <!-- CONTEÚDO DA LISTA QUE SERÁ ROLÁVEL -->
+                    <div id="conteudoModalProdutos" class="lista-scroll">
+                        <!-- Aqui o backend vai preencher depois -->
+                    </div>
+
+                </div>
+
+                <!-- FOOTER FIXO -->
+                <div class="modal-footer footer-fixo">
+                    <button type="button" class="btn btn-success">
+                        Adicionar Produtos
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade staticBackdropDados" id="staticBackdropDados" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-meta-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabelDados">Adicionar Objetivo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="fecharModalDados()"></button>
+                </div><Br>
+                <div th:if="${erros}" style="margin-top:15px;">
+                    <ul>
+                        <li th:each="erro : ${erros}" th:text="${erro.defaultMessage}" class="error"></li>
+                    </ul>
+                </div>
+                <div class="modal-body" id="conteudoModalDados">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="cadastroModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/usuario/salvar}" th:object="${usuario}" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cadastrar-se</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p th:if="${param.errorCaptcha}" style="color:red;">
+                            Erro na validação do captcha
+                        </p>
+                        <div th:if="${erros}" style="margin-top:15px;">
+                            <ul>
+                                <li th:each="erro : ${erros}" th:text="${erro.defaultMessage}" class="error"></li>
+                            </ul>
+                        </div>
+                        <p th:if="${emailExists}" style="color:red;">
+                            Email ja cadastrado!, deseja fazer <a href="../login">login</a> ?
+                        </p>
+                        <input type="hidden" name="origem" value="cadastro">
+                            Nome: <input required type="text" placeholder="Ex: João" name="titulo" th:field="*{nome}">&nbsp;<input type="text" placeholder="Sobrenome" required th:field="*{sobrenome}" name="sobrenome" id="sobrenome"><br><br>
+                            Senha: <input required type="password" th:field="*{password}" name="password" id="password"><br><br>
+                            Email: <input required placeholder="email@email.com" type="email" th:field="*{email}" name="email" id="email"><br><br>
+                            Data de nascimento: <input required type="date" th:field="*{dataNascimento}" name="dataNascimento" id="dataNascimento"><br><br>
+                            <div class="g-recaptcha" data-sitekey="6Le8VyIsAAAAAO6-IbnuFH0VhUA4U68ihCtl8bgo"></div>
+                    </div>
+                    <div class="modal-footer">
+                        Já possui conta?<a href="#" id="abrirLogin">Login</a>
+                        <button type="submit" class="btn btn-success">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="loginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/login" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Login</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p th:if="${param.errorCaptcha}" style="color:red;">
+                           Erro na validação do captcha
+                        </p>
+                        <!-- Logout realizado -->
+                        <p th:if="${param.logout}" style="color:green;">
+                            Logout realizado com sucesso.
+                        </p>
+                        <!-- Sessão expirada / timeout -->
+                        <p th:if="${param.expired}" style="color:orange;">
+                            Sua sessão expirou. Faça login novamente.
+                        </p>
+                        <p th:if="${param.timeout}" style="color:orange;">
+                            Sua sessão expirou. Faça login novamente.
+                        </p>
+                        <p th:if="${param.error}" style="color:red;">
+                            Email ou senha incorreta!
+                        </p>
+                        <p th:if="${param.cadastrado}" style="color:green;">
+                            Usuario Cadastrado com sucesso!
+                        </p>
+                        Email: <input required name="username" type="email"><br><br>
+                        Senha: <input required name="password" type="password"><br><br>
+                        <div class="g-recaptcha" data-sitekey="6Le8VyIsAAAAAO6-IbnuFH0VhUA4U68ihCtl8bgo"></div><br>
+                        Não possui uma conta?<a href="#" id="abrirCadastro"> Cadastrar-se</a><br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Entrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer id="rodape">
+        <br>
+        <strong>Versão 1.0</strong> - data de criação: 03/12/2025<Br><br>
+        <strong>Contatos: &nbsp;</strong><a href="https://api.whatsapp.com/send?phone=5516997705165&text=Olá,%20gostaria%20de%20falar%20com%20você%20sobre%20o%20Calories%20Calculator" target="_blank"><img src="/img/whatsapp.png" alt="icone" width="24"></a>&nbsp;&nbsp;
+        <a href="https://github.com/TiagoCostaSantos" target="_blank"><img src="/img/github.png" alt="icone" width="24"></a>&nbsp;&nbsp;
+        <a href="https://www.linkedin.com/in/tiago-c-santos-78052a222/" target="_blank"><img src="/img/linkedin.png" alt="icone" width="24"></a>&nbsp;&nbsp;
+        <a href="mailto:tiagocosta7603@gmail.com" target="_blank"><img src="/img/gmail.png" alt="icone" width="24"></a>&nbsp;&nbsp;
+        <br>
+        <strong>Autor:</strong> Tiago Costa Santos<br><br>
+        <hr>
+        <strong>Atenção:</strong> Site criado no intuito do aprendizado, sendo assim fique por sua conta no uso das ferramentas.
+        <hr>
+        <strong>Calculo dos produtos:</strong> Taxa de metabolismo basal foi utilizado o calculo de mifflin-st jeor, já no gasto energetico diario total (Tdee) foi utilizado os seguintes amplificadores (tdee = tbm * nivel de atividade fisica): SEDENTARIO - 1.2, LEVE - 1.375, MODERADO - 1.55, INTENSO - 1.725, MUITO_INTENSO - 1.9. Macronutrientes - Deficit = Carbo: 40%, Proteina: 33%, Gordura Entre outros: 27% - Superavit = Carbo: 54%, Proteina: 24%, Gordura Entre outros: 22%. Quantidade de dias para a meta: KGporDia = (tdee - metaKcalDia) / 7700;
+    </footer>
     </center>
     <!-- Importando o arquivo JS -->
     <script th:src="@{/js/script.js}"></script>
     <!-- Scripts do Bootstrap (JS) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!--Scripts do Chart.js (grafico)-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <script>
-        // GRAFICO CHART.JS
-        var ctx = document.getElementsByClassName("line-chart");
-        // type, Data e options
-        // Type, Data e options
-        var chartGraph = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ["Domingo", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
-          datasets: [
-              {
-                  label: "TAXA DE CLIQUES - 2017",
-                  data: [5, 10, 5, 14, 10, 15, 6, 14, 8, 12, 15, 5, 10],
-                  borderWidth: 6,
-                  borderColor: 'rgba(77,166,253,0.85)',
-                  backgroundColor: 'transparent',
-              },
-              {
-                  label: "TAXA DE CLIQUES - 2018",
-                  data: [9, 14, 11, 6, 5, 4, 3, 8, 11, 10, 13, 18, 6],
-                  borderWidth: 6,
-                  borderColor: 'rgba(6,204,6,0.85)',
-                  backgroundColor: 'transparent',
-              },
-          ]
-        },
-        options: {
-          title: {
-              display: true,
-              fontSize: 20,
-              text: "GRAFICO DO CONSUMO E DAS METAS"
-          },
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1"></script>
+    <script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", () => {
+
+        let qtdGraficos = /*[[${qtdGraficos != null ? qtdGraficos : 1}]]*/ 1;
+        let totalDias = /*[[${dadosUsuario != null ? dadosUsuario.qtdDias : 0}]]*/ 0;
+        let metaKcal = /*[[${dadosUsuario != null ? dadosUsuario.metaKcalDia : 0}]]*/ 0;
+        let metaCarboidrato = /*[[${dadosUsuario != null ? dadosUsuario.macroNutrientesModel.carboidratos : 0}]]*/ 0;
+        let metaProteina = /*[[${dadosUsuario != null ? dadosUsuario.macroNutrientesModel.proteinas : 0}]]*/ 0;
+        let metaGordurasGerais = /*[[${dadosUsuario != null ? dadosUsuario.macroNutrientesModel.gordurasGerais : 0}]]*/ 0;
+        let diaDoProjeto = /*[[${diaAtualProjeto != null ? diaAtualProjeto : 0}]]*/ 0;
+
+        let kcalConsumida = /*[[${KcalConsumidoTodosOsDia != null ? KcalConsumidoTodosOsDia : 0}]]*/ 0;
+        let carboConsumida = /*[[${CarboConsumidoTodosOsDia != null ? CarboConsumidoTodosOsDia : 0}]]*/ 0;
+        let proteinaConsumida= /*[[${ProteinaConsumidoTodosOsDia != null ? ProteinaConsumidoTodosOsDia : 0}]]*/ 0;
+
+        qtdGraficos = parseInt(qtdGraficos, 10) || 1;
+        totalDias = parseInt(totalDias, 10) || 1;
+        metaKcal = parseFloat(metaKcal).toFixed(2);
+        metaCarboidrato = parseFloat(metaCarboidrato).toFixed(2);
+        metaProteina = parseFloat(metaProteina).toFixed(2);
+        metaGordurasGerais = parseFloat(metaGordurasGerais).toFixed(2);
+        diaDoProjeto  = Math.max(parseInt(diaDoProjeto, 10) || 0, 0);
+
+        const diasPorGrafico = 30;
+        const slideIndex = Math.floor((diaDoProjeto - 1) / diasPorGrafico);
+
+        const carouselElement = document.querySelector('#carouselGraficos');
+        const carousel = new bootstrap.Carousel(carouselElement, {
+            interval: false,
+            ride: false
+        });
+        carousel.to(slideIndex);
+
+        for (let i = 0; i < qtdGraficos; i++) {
+
+            const canvas = document.getElementById(`chartCanvas-${i}`);
+            if (!canvas) continue;
+
+            const start = i * diasPorGrafico + 1;
+            const end = Math.min((i + 1) * diasPorGrafico, totalDias);
+
+            if (start > totalDias) break;
+
+            const labels = Array.from({ length: end - start + 1 }, (_, idx) => start + idx);
+            const posicaoNoGrafico = labels.indexOf(diaDoProjeto);
+
+            // 🔥 NOVO: recorta só os dados daquele gráfico
+            const kcalSlice = kcalConsumida.slice(start - 1, end);
+            const carboSlice = carboConsumida.slice(start - 1, end);
+            const proteinaSlice = proteinaConsumida.slice(start - 1, end);
+
+            new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: `Meta de kcal (${metaKcal})`,
+                            data: Array(labels.length).fill(metaKcal),
+                            pointRadius: 0,
+                            borderWidth: 4,
+                            borderColor: "#ff7733",
+                            tension: 0
+                        },
+                        {
+                            label: `Meta de Carboidratos (${metaCarboidrato})`,
+                            data: Array(labels.length).fill(metaCarboidrato),
+                            pointRadius: 0,
+                            borderWidth: 4,
+                            borderColor: "#2283c3",
+                            tension: 0
+                        },
+                        {
+                            label: `Meta de Proteinas (${metaProteina})`,
+                            data: Array(labels.length).fill(metaProteina),
+                            pointRadius: 0,
+                            borderWidth: 4,
+                            borderColor: "#2abb67",
+                            tension: 0
+                        },
+                        {
+                            label: `Kcal consumida`,
+                            data: kcalSlice,
+                            pointRadius: 3,
+                            borderWidth: 4,
+                            borderColor: "#ffbb99",
+                            tension: 0
+                        },
+                        {
+                            label: `Carbo consumida`,
+                            data: carboSlice,
+                            pointRadius: 3,
+                            borderWidth: 4,
+                            borderColor: "#93c8ec",
+                            tension: 0
+                        },
+                        {
+                            label: `Proteina consumida`,
+                            data: proteinaSlice,
+                            pointRadius: 3,
+                            borderWidth: 4,
+                            borderColor: "#6ede9c",
+                            tension: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: "bottom",
+                            labels: {
+                                usePointStyle: true,
+                                pointStyle: "circle"
+                            }
+                        },
+                        annotation: posicaoNoGrafico !== -1 ? {
+                            annotations: {
+                                linhaHoje: {
+                                    type: "line",
+                                    scaleID: "x",
+                                    value: Number(posicaoNoGrafico),
+                                    borderColor: "#ff751a",
+                                    borderWidth: 3,
+                                    label: {
+                                        display: true,
+                                        content: "Hoje",
+                                        position: "start",
+                                        backgroundColor: "rgba(255,117,26,0.8)",
+                                        color: "#fff",
+                                        padding: 6,
+                                    }
+                                }
+                            }
+                        } : undefined
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Dias até o objetivo"
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                        }
+                    }
+                }
+            });
         }
+    });
+</script>
+    <script th:if="${AcionarModalDados}">
+        window.addEventListener('load', () => {
+            abrirModalDados();
         });
     </script>
+    <script th:if="${fecharModalDados}">
+        window.addEventListener('load', () => {
+            fecharModalDados();
+        });
+    </script>
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            var abrirModal = /*[[${abrirModalCadastro}]]*/ false;
+            if(abrirModal){
+                var modal = new bootstrap.Modal(document.getElementById('cadastroModal'));
+                modal.show();
+            }
+        });
+    </script>
+<!--    Configuração dos modal´s logar e cadastrar-se-->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const loginModalEl = document.getElementById("loginModal");
+            const cadastroModalEl = document.getElementById("cadastroModal");
+
+            // pega instância existente OU cria nova
+            const loginModal =
+                bootstrap.Modal.getInstance(loginModalEl) ||
+                new bootstrap.Modal(loginModalEl, { backdrop: 'static' });
+
+            const cadastroModal =
+                bootstrap.Modal.getInstance(cadastroModalEl) ||
+                new bootstrap.Modal(cadastroModalEl, { backdrop: 'static' });
+
+
+            // ---- troca para cadastro ----
+            document.getElementById("abrirCadastro")?.addEventListener("click", () => {
+                loginModal.hide();
+                setTimeout(() => cadastroModal.show(), 200);
+            });
+
+            // ---- troca para login ----
+            document.getElementById("abrirLogin")?.addEventListener("click", () => {
+                cadastroModal.hide();
+                setTimeout(() => loginModal.show(), 200);
+            });
+
+            // ---- Se a URL mandou abrir login (login errado, logout, etc) ----
+            const url = new URL(window.location.href);
+            if (url.searchParams.has("modalLogin")) {
+
+                // limpa o parametro da URL sem recarregar
+                url.searchParams.delete("modalLogin");
+                window.history.replaceState({}, document.title,
+                    url.pathname + (url.searchParams.toString() ? "?" + url.searchParams.toString() : "")
+                );
+
+                loginModal.show();
+            }
+        });
+
+
+        // garante que nunca fiquem dois modais abertos
+        document.addEventListener("shown.bs.modal", function (event) {
+            document.querySelectorAll(".modal.show").forEach(m => {
+                if (m !== event.target) bootstrap.Modal.getInstance(m)?.hide();
+            });
+        });
+    </script>
+<!--    Captcha-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>

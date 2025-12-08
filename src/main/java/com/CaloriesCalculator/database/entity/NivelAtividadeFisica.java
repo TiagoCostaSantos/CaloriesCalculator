@@ -2,19 +2,20 @@ package com.CaloriesCalculator.database.entity;
 
 public enum NivelAtividadeFisica {
 
-    SEDENTARIO("Sedentario"),
-    LEVE("Leve"),
-    MODERADO("Moderado"),
-    INTENSO("Intenso"),
-    MUITO_INTENSO("Muito Intenso");
+    SEDENTARIO(1.2),
+    LEVE(1.375),
+    MODERADO(1.55),
+    INTENSO(1.725),
+    MUITO_INTENSO(1.9);
 
-    private final String descricao;
+    private final double fator;
 
-    public String getDescricao() {
-        return descricao;
+    NivelAtividadeFisica(double fator) {
+        this.fator = fator;
     }
 
-    NivelAtividadeFisica(String descricao) {
-        this.descricao = descricao;
+    public double getFator() {
+        return fator;
     }
+
 }

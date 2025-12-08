@@ -13,4 +13,6 @@ import java.util.Optional;
 public interface Refeicao_ProdutoAlimenticioRepository extends JpaRepository<Refeicao_ProdutoAlimenticioEntity, RefeicaoProdutoId> {
 
     Optional<Refeicao_ProdutoAlimenticioEntity> findByRefeicao_IdAndProdutoAlimenticio_Id(Long refeicaoId, Long produtoAlimenticioId);
+
+    List<Refeicao_ProdutoAlimenticioEntity> findByRefeicao_Id(Long refeicaoId);
 }

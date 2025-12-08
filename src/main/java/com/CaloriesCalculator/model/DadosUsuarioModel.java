@@ -1,13 +1,13 @@
 package com.CaloriesCalculator.model;
 
-import com.CaloriesCalculator.database.entity.MotivoEnum;
+import com.CaloriesCalculator.database.entity.Intensidade;
 import com.CaloriesCalculator.database.entity.NivelAtividadeFisica;
-import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class DadosUsuarioModel {
 
@@ -16,24 +16,28 @@ public class DadosUsuarioModel {
     @NotBlank(message = "O sexo é um campo obrigatório.")
     private String sexo;
 
-    @NotBlank(message = "A altura é um campo obrigatório")
-    @DecimalMin(value = "0.5", message = "Altura invalida")
-    @DecimalMax(value = "3.0", message = "Altura invalida")
+    @NotNull(message = "A altura é obrigatória.")
+    @DecimalMin(value = "50", message = "Altura inválida (mínimo 50 cm)")
+    @DecimalMax(value = "300", message = "Altura inválida (máximo 300 cm)")
     private Double altura;
 
-    @NotBlank(message = "O peso é um campo obrigatório")
-    @DecimalMin(value = "20.0", message = "Peso invalido")
-    @DecimalMax(value = "300.0", message = "Peso invalido")
+    @NotNull(message = "O peso é obrigatório.")
+    @DecimalMin(value = "20", message = "Peso inválido (mínimo 20 kg)")
+    @DecimalMax(value = "300", message = "Peso inválido (máximo 300 kg)")
     private Double peso;
 
-    @NotBlank(message = "O nivel de atividade Fisica é obrigatório")
+    @NotNull(message = "O nível de atividade física é obrigatório.")
     @Enumerated(EnumType.STRING)
     private NivelAtividadeFisica nivelAtividadeFisica;
 
-    @NotBlank(message = "O Motivo é um campo obrigatório")
+    @NotNull(message = "A meta de peso é obrigatória.")
+    @DecimalMin(value = "20", message = "Meta inválida (mínimo 20 kg)")
+    @DecimalMax(value = "300", message = "Meta inválida (máximo 300 kg)")
+    private Double meta;
+
+    @NotNull(message = "A intensidade é obrigatória.")
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 30)
-    private MotivoEnum motivoEnum;
+    private Intensidade intensidade;
 
     public long getId() {
         return id;
@@ -67,6 +71,14 @@ public class DadosUsuarioModel {
         this.peso = peso;
     }
 
+    public Double getMeta() {
+        return meta;
+    }
+
+    public void setMeta(Double meta) {
+        this.meta = meta;
+    }
+
     public NivelAtividadeFisica getNivelAtividadeFisica() {
         return nivelAtividadeFisica;
     }
@@ -75,11 +87,11 @@ public class DadosUsuarioModel {
         this.nivelAtividadeFisica = nivelAtividadeFisica;
     }
 
-    public MotivoEnum getMotivoEnum() {
-        return motivoEnum;
+    public Intensidade getIntensidade() {
+        return intensidade;
     }
 
-    public void setMotivoEnum(MotivoEnum motivoEnum) {
-        this.motivoEnum = motivoEnum;
+    public void setIntensidade(Intensidade intensidade) {
+        this.intensidade = intensidade;
     }
 }

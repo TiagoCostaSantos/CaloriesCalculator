@@ -1,6 +1,5 @@
 package com.CaloriesCalculator.database.entity;
 
-import com.CaloriesCalculator.model.TipoRefeicaoEnum;
 import jakarta.persistence.*;
 
 import java.util.List;

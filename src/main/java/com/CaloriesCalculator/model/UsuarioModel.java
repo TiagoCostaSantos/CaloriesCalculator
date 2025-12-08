@@ -16,7 +16,7 @@ public class UsuarioModel {
     @Size(min = 2, max = 100, message = "O nome deve ter entre 2 e 100 caracteres")
     private String sobrenome;
 
-    @NotBlank(message = "A Senha é obrigatoria")
+//    @NotBlank(message = "A Senha é obrigatoria")
     @Size(min = 5, max = 40, message = "A senha deve possuir entre 5 a 30 caracteres")
     private String password;
 
