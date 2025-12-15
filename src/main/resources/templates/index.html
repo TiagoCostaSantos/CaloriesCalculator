@@ -113,10 +113,10 @@
                 <th scope="col">Outros (dia)</th>
             </tr>
             <tr>
-                <td>Meta: <p th:text="${dadosUsuario != null ? #numbers.formatDecimal(dadosUsuario.metaKcalDia, 1, 2) : '0,00'}" ></p></td>
-                <td>Meta: <p th:text="${dadosUsuario != null ? #numbers.formatDecimal(dadosUsuario.macroNutrientesModel.carboidratos, 1, 2) : '0,00'}"></p></td>
-                <td>Meta: <p th:text="${dadosUsuario != null ? #numbers.formatDecimal(dadosUsuario.macroNutrientesModel.proteinas, 1, 2) : '0,00' }"></p></td>
-                <td>Meta: <p th:text="${dadosUsuario != null ? #numbers.formatDecimal(dadosUsuario.macroNutrientesModel.gordurasGerais, 1, 2) : '0,00'}"></p></td>
+                <td>Meta:<p th:text="${dadosUsuario != null ? #numbers.formatDecimal(dadosUsuario.metaKcalDia, 1, 2) : '0,00'}"></p></td>
+                <td>Meta (g):<p th:text="${dadosUsuario != null? #numbers.formatDecimal(dadosUsuario.macroNutrientesModel.carboidratos / 4, 1, 2): '0,00'}"></p></td>
+                <td>Meta (g):<p th:text="${dadosUsuario != null? #numbers.formatDecimal(dadosUsuario.macroNutrientesModel.proteinas / 4, 1, 2): '0,00'}"></p></td>
+                <td>Meta (g):<p th:text="${dadosUsuario != null? #numbers.formatDecimal(dadosUsuario.macroNutrientesModel.gordurasGerais / 9, 1, 2): '0,00'}"></p></td>
             </tr>
             <tr>
                 <td>Consumidas: <p th:text="${kcalConsumida != null ? #numbers.formatDecimal(kcalConsumida, 1, 2) : '0,00'}"></p></td>
@@ -381,18 +381,8 @@
 
                     <!-- CONTEÚDO DA LISTA QUE SERÁ ROLÁVEL -->
                     <div id="conteudoModalProdutos" class="lista-scroll">
-                        <!-- Aqui o backend vai preencher depois -->
                     </div>
-
                 </div>
-
-                <!-- FOOTER FIXO -->
-                <div class="modal-footer footer-fixo">
-                    <button type="button" class="btn btn-success">
-                        Adicionar Produtos
-                    </button>
-                </div>
-
             </div>
         </div>
     </div>
@@ -480,7 +470,7 @@
                         Email: <input required name="username" type="email"><br><br>
                         Senha: <input required name="password" type="password"><br><br>
                         <div class="g-recaptcha" data-sitekey="6Le8VyIsAAAAAO6-IbnuFH0VhUA4U68ihCtl8bgo"></div><br>
-                        Não possui uma conta?<a href="#" id="abrirCadastro"> Cadastrar-se</a><br>
+                        Não possui uma conta? <a href="#" id="abrirCadastro">Cadastrar-se</a><br>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">Entrar</button>
@@ -511,6 +501,7 @@
     <!--Scripts do Chart.js (grafico)-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1"></script>
+    <!-- Criando graficos -->
     <script th:inline="javascript">
     document.addEventListener("DOMContentLoaded", () => {
 
@@ -529,9 +520,9 @@
         qtdGraficos = parseInt(qtdGraficos, 10) || 1;
         totalDias = parseInt(totalDias, 10) || 1;
         metaKcal = parseFloat(metaKcal).toFixed(2);
-        metaCarboidrato = parseFloat(metaCarboidrato).toFixed(2);
-        metaProteina = parseFloat(metaProteina).toFixed(2);
-        metaGordurasGerais = parseFloat(metaGordurasGerais).toFixed(2);
+        metaCarboidrato = (parseFloat(metaCarboidrato) / 4).toFixed(2);
+        metaProteina = (parseFloat(metaProteina)/4).toFixed(2);
+        metaGordurasGerais = (parseFloat(metaGordurasGerais)/ 9).toFixed(2);
         diaDoProjeto  = Math.max(parseInt(diaDoProjeto, 10) || 0, 0);
 
         const diasPorGrafico = 30;
@@ -664,6 +655,7 @@
         }
     });
 </script>
+    <!-- function do modalDados -->
     <script th:if="${AcionarModalDados}">
         window.addEventListener('load', () => {
             abrirModalDados();
@@ -674,18 +666,15 @@
             fecharModalDados();
         });
     </script>
+    <!--Configuração dos modal´s logar e cadastrar-se-->
     <script th:inline="javascript">
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", () => {
+
             var abrirModal = /*[[${abrirModalCadastro}]]*/ false;
             if(abrirModal){
                 var modal = new bootstrap.Modal(document.getElementById('cadastroModal'));
                 modal.show();
             }
-        });
-    </script>
-<!--    Configuração dos modal´s logar e cadastrar-se-->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
 
             const loginModalEl = document.getElementById("loginModal");
             const cadastroModalEl = document.getElementById("cadastroModal");
@@ -734,6 +723,6 @@
             });
         });
     </script>
-<!--    Captcha-->
+    <!--Captcha-->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>

@@ -17,7 +17,6 @@ public class ProdutoController {
     public ProdutoController(ProdutoAlimenticioUseCase produtoAlimenticioUseCase){
         this.produtoAlimenticioUseCase = produtoAlimenticioUseCase;
     }
-    // CRUD Produtos alimenticios
 
     //Chamando o formulario, e instanciando o model
     @GetMapping("/cadastrar")

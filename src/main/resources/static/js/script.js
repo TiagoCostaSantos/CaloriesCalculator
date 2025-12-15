@@ -8,17 +8,31 @@ document.addEventListener("DOMContentLoaded", function() {
             alert("Produto cadastrado com sucesso!");
         }, 600);
     }
-});
-
-// Adiciona o evento ao botão do modal
-document.addEventListener("DOMContentLoaded", function() {
-  const headers = document.querySelectorAll(".accordion-header");
-  headers.forEach(header => {
-    header.addEventListener("click", () => {
-      const item = header.parentElement;
-      item.classList.toggle("active");
+    // Adiciona o evento ao botão do modal
+    const headers = document.querySelectorAll(".accordion-header");
+    headers.forEach(header => {
+        header.addEventListener("click", () => {
+            const item = header.parentElement;
+            item.classList.toggle("active");
+        });
     });
-  });
+
+    // FECHAR MODAL PRODUTOS LIMPAR SELEÇÕES, BUSCA, E REFEICAO
+    const modalElement = document.getElementById('staticBackdrop');
+    // Esse evento é disparado sempre que o modal é FECHADO
+    modalElement.addEventListener('hidden.bs.modal', () => {
+    // 1️⃣ Limpa o campo de pesquisa
+    const input = document.getElementById('inputProduto');
+    if (input) input.value = '';
+    // 2️⃣ Desmarca todos os checkboxes que estavam marcados
+    document.querySelectorAll(".produto-checkbox-modal").forEach(chk => chk.checked = false);
+    // 3️⃣ Zera a lista de produtos selecionados
+        produtosSelecionados.clear();
+    // 4️⃣ Zera refeição atual
+    refeicaoAtual = null;
+    // 5️⃣ (opcional) limpa o conteúdo do modal
+    document.getElementById('conteudoModalProdutos').innerHTML = '';
+    });
 });
 
 // MODAL (DADOS USUARIO)
@@ -115,25 +129,6 @@ function restaurarSelecao() {
         }
     });
 }
-
-// FECHAR MODAL PRODUTOS LIMPAR SELEÇÕES, BUSCA, E REFEICAO
-document.addEventListener('DOMContentLoaded', () => {
-  const modalElement = document.getElementById('staticBackdrop');
-  // Esse evento é disparado sempre que o modal é FECHADO
-  modalElement.addEventListener('hidden.bs.modal', () => {
-    // 1️⃣ Limpa o campo de pesquisa
-    const input = document.getElementById('inputProduto');
-    if (input) input.value = '';
-    // 2️⃣ Desmarca todos os checkboxes que estavam marcados
-    document.querySelectorAll(".produto-checkbox-modal").forEach(chk => chk.checked = false);
-    // 3️⃣ Zera a lista de produtos selecionados
-        produtosSelecionados.clear();
-    // 4️⃣ Zera refeição atual
-    refeicaoAtual = null;
-    // 5️⃣ (opcional) limpa o conteúdo do modal
-    document.getElementById('conteudoModalProdutos').innerHTML = '';
-  });
-});
 
 // fechar modal Dados e voltar scroll
 document.addEventListener('hidden.bs.modal', () => {
