@@ -43,6 +43,11 @@ public class HomeController {
         this.homeFacade = homeFacade;
     }
 
+    @GetMapping("/")
+    public String redirectToHome() {
+        return "redirect:/home";
+    }
+
     @GetMapping("/home")
     public String mostrarPagIndex(@RequestParam(required = false, defaultValue = "false") boolean abrirModal, DadosUsuarioModel dadosUsuarioModel, Model model, Principal principal, HttpServletRequest request) throws UnsupportedEncodingException {
 
